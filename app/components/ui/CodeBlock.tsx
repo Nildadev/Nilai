@@ -39,7 +39,7 @@ export function CodeBlock({
   return (
     <div
       className={classNames(
-        'rounded-lg overflow-hidden border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark',
+        'rounded-[var(--bolt-border-radius)] overflow-hidden border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark',
         'bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3',
         className,
       )}
@@ -64,7 +64,7 @@ export function CodeBlock({
         <Tooltip content={copied ? 'Copied!' : 'Copy code'}>
           <motion.button
             onClick={handleCopy}
-            className="p-1.5 rounded-md text-bolt-elements-textTertiary hover:text-bolt-elements-textSecondary dark:text-bolt-elements-textTertiary-dark dark:hover:text-bolt-elements-textSecondary-dark hover:bg-bolt-elements-background-depth-2 dark:hover:bg-bolt-elements-background-depth-3 transition-colors"
+            className="p-1.5 rounded-[var(--bolt-border-radius-sm)] text-bolt-elements-textTertiary hover:text-bolt-elements-textSecondary dark:text-bolt-elements-textTertiary-dark dark:hover:text-bolt-elements-textSecondary-dark hover:bg-bolt-elements-background-depth-2 dark:hover:bg-bolt-elements-background-depth-3 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

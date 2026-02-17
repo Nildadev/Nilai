@@ -83,7 +83,7 @@ export function GitHubAuthDialog({ isOpen, onClose }: GitHubAuthDialogProps) {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
           >
-            <Dialog.Content className="bg-white dark:bg-[#1A1A1A] rounded-lg shadow-xl max-w-sm w-full mx-4 overflow-hidden">
+            <Dialog.Content className="bg-white dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)] shadow-xl max-w-sm w-full mx-4 overflow-hidden">
               <div className="p-4 space-y-3">
                 <h2 className="text-lg font-semibold text-[#111111] dark:text-white">Access Private Repositories</h2>
 
@@ -92,7 +92,7 @@ export function GitHubAuthDialog({ isOpen, onClose }: GitHubAuthDialogProps) {
                   token.
                 </p>
 
-                <div className="bg-[#F9F9F9] dark:bg-[#252525] p-4 rounded-lg space-y-3">
+                <div className="bg-[#F9F9F9] dark:bg-[#252525] p-4 rounded-[var(--bolt-border-radius)] space-y-3">
                   <h3 className="text-base font-medium text-[#111111] dark:text-white">Connect with GitHub Token</h3>
 
                   <form onSubmit={handleSubmit} className="space-y-3">
@@ -105,7 +105,7 @@ export function GitHubAuthDialog({ isOpen, onClose }: GitHubAuthDialogProps) {
                         value={token}
                         onChange={(e) => setToken(e.target.value)}
                         placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-                        className="w-full px-3 py-1.5 rounded-lg border border-[#E5E5E5] dark:border-[#333333] bg-white dark:bg-[#1A1A1A] text-[#111111] dark:text-white placeholder-[#999999] text-sm"
+                        className="w-full px-3 py-1.5 rounded-[var(--bolt-border-radius)] border border-[#E5E5E5] dark:border-[#333333] bg-white dark:bg-[#1A1A1A] text-[#111111] dark:text-white placeholder-[#999999] text-sm"
                       />
                       <div className="mt-1 text-xs text-[#666666] dark:text-[#999999]">
                         Get your token at{' '}
@@ -147,14 +147,14 @@ export function GitHubAuthDialog({ isOpen, onClose }: GitHubAuthDialogProps) {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                      className="w-full py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-[var(--bolt-border-radius)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                     >
                       {isSubmitting ? 'Connecting...' : 'Connect to GitHub'}
                     </button>
                   </form>
                 </div>
 
-                <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg space-y-1.5">
+                <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-[var(--bolt-border-radius)] space-y-1.5">
                   <h3 className="text-sm text-amber-800 dark:text-amber-300 font-medium flex items-center gap-1.5">
                     <span className="i-ph:warning-circle w-4 h-4" />
                     Accessing Private Repositories
@@ -175,7 +175,7 @@ export function GitHubAuthDialog({ isOpen, onClose }: GitHubAuthDialogProps) {
                 <Dialog.Close asChild>
                   <button
                     onClick={onClose}
-                    className="px-4 py-1.5 bg-transparent bg-[#F5F5F5] hover:bg-[#E5E5E5] dark:bg-[#252525] dark:hover:bg-[#333333] rounded-lg text-[#111111] dark:text-white transition-colors text-sm"
+                    className="px-4 py-1.5 bg-transparent bg-[#F5F5F5] hover:bg-[#E5E5E5] dark:bg-[#252525] dark:hover:bg-[#333333] rounded-[var(--bolt-border-radius)] text-[#111111] dark:text-white transition-colors text-sm"
                   >
                     Close
                   </button>

@@ -395,7 +395,7 @@ export default function OllamaModelInstaller({ onModelInstalled }: OllamaModelIn
           onClick={handleCheckUpdates}
           disabled={isChecking}
           className={classNames(
-            'px-4 py-2 rounded-lg',
+            'px-4 py-2 rounded-[var(--bolt-border-radius)]',
             'bg-sky-500/10 text-sky-500',
             'hover:bg-sky-500/20',
             'transition-all duration-200',
@@ -453,7 +453,7 @@ export default function OllamaModelInstaller({ onModelInstalled }: OllamaModelIn
           onClick={() => handleInstallModel(modelString)}
           disabled={!modelString || isInstalling}
           className={classNames(
-            'rounded-lg px-4 py-2',
+            'rounded-[var(--bolt-border-radius)] px-4 py-2',
             'bg-sky-500 text-white text-sm',
             'hover:bg-sky-600',
             'transition-all duration-200',
@@ -501,7 +501,7 @@ export default function OllamaModelInstaller({ onModelInstalled }: OllamaModelIn
           <motion.div
             key={model.name}
             className={classNames(
-              'flex items-start gap-2 p-3 rounded-lg',
+              'flex items-start gap-2 p-3 rounded-[var(--bolt-border-radius)]',
               'bg-bolt-elements-background-depth-3',
               'hover:bg-bolt-elements-background-depth-4',
               'transition-all duration-200',
@@ -544,7 +544,7 @@ export default function OllamaModelInstaller({ onModelInstalled }: OllamaModelIn
                       <motion.button
                         onClick={() => handleUpdateModel(model.name)}
                         className={classNames(
-                          'px-2 py-0.5 rounded-lg text-xs',
+                          'px-2 py-0.5 rounded-[var(--bolt-border-radius)] text-xs',
                           'bg-sky-500 text-white',
                           'hover:bg-sky-600',
                           'transition-all duration-200',
@@ -557,13 +557,13 @@ export default function OllamaModelInstaller({ onModelInstalled }: OllamaModelIn
                         Update
                       </motion.button>
                     ) : (
-                      <span className="px-2 py-0.5 rounded-lg text-xs text-green-500 bg-green-500/10">Up to date</span>
+                      <span className="px-2 py-0.5 rounded-[var(--bolt-border-radius)] text-xs text-green-500 bg-green-500/10">Up to date</span>
                     )
                   ) : (
                     <motion.button
                       onClick={() => handleInstallModel(model.name)}
                       className={classNames(
-                        'px-2 py-0.5 rounded-lg text-xs',
+                        'px-2 py-0.5 rounded-[var(--bolt-border-radius)] text-xs',
                         'bg-sky-500 text-white',
                         'hover:bg-sky-600',
                         'transition-all duration-200',

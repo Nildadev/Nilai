@@ -24,7 +24,7 @@ export function UserMessage({ content }: UserMessageProps) {
               key={index}
               src={item.image}
               alt={`Image ${index + 1}`}
-              className="max-w-full h-auto rounded-lg"
+              className="max-w-full h-auto rounded-[var(--bolt-border-radius)]"
               style={{ maxHeight: '512px', objectFit: 'contain' }}
             />
           ))}

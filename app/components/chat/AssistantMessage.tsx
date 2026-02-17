@@ -70,13 +70,13 @@ export const AssistantMessage = memo(({ content, annotations, messageId, onRewin
               {chatSummary && (
                 <div className="max-w-chat">
                   <div className="summary max-h-96 flex flex-col">
-                    <h2 className="border border-bolt-elements-borderColor rounded-md p4">Summary</h2>
+                    <h2 className="border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)] p4">Summary</h2>
                     <div style={{ zoom: 0.7 }} className="overflow-y-auto m4">
                       <Markdown>{chatSummary}</Markdown>
                     </div>
                   </div>
                   {codeContext && (
-                    <div className="code-context flex flex-col p4 border border-bolt-elements-borderColor rounded-md">
+                    <div className="code-context flex flex-col p4 border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)]">
                       <h2>Context</h2>
                       <div className="flex gap-4 mt-4 bolt" style={{ zoom: 0.6 }}>
                         {codeContext.map((x) => {
@@ -84,7 +84,7 @@ export const AssistantMessage = memo(({ content, annotations, messageId, onRewin
                           return (
                             <Fragment key={normalized}>
                               <code
-                                className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-md text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
+                                className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-[var(--bolt-border-radius-sm)] text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();

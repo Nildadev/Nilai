@@ -15,9 +15,9 @@ export function Header() {
         'border-bolt-elements-borderColor': chat.started,
       })}
     >
-      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer">
-        <div className="i-ph:sidebar-simple-duotone text-xl" />
-        <a href="/" className="text-2xl font-semibold text-accent flex items-center">
+      <div className="flex items-center gap-2 z-logo text-bolt-elements-textPrimary cursor-pointer group">
+        <div className="i-ph:sidebar-simple-duotone text-xl group-hover:text-sky-500 transition-colors" />
+        <a href="/" className="text-2xl font-semibold text-accent flex items-center transition-all hover:drop-shadow-[0_0_8px_rgba(14,165,233,0.4)]">
           {/* <span className="i-bolt:logo-text?mask w-[46px] inline-block" /> */}
           <img src="/logo-light-styled.png" alt="logo" className="w-[90px] inline-block dark:hidden" />
           <img src="/logo-dark-styled.png" alt="logo" className="w-[90px] inline-block hidden dark:block" />

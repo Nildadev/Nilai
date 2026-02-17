@@ -47,7 +47,7 @@ export const AvatarDropdown = ({ onSelectTab }: AvatarDropdownProps) => {
           className={classNames(
             'min-w-[240px] z-[250]',
             'bg-white dark:bg-[#141414]',
-            'rounded-lg shadow-lg',
+            'rounded-[var(--bolt-border-radius)] shadow-lg',
             'border border-gray-200/50 dark:border-gray-800/50',
             'animate-in fade-in-0 zoom-in-95',
             'py-1',

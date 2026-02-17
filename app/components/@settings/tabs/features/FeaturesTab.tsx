@@ -36,7 +36,7 @@ const FeatureCard = memo(
         'bg-bolt-elements-background-depth-2',
         'hover:bg-bolt-elements-background-depth-3',
         'transition-colors duration-200',
-        'rounded-lg overflow-hidden',
+        'rounded-[var(--bolt-border-radius)] overflow-hidden',
       )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -241,7 +241,7 @@ export default function FeaturesTab() {
           'bg-bolt-elements-background-depth-2',
           'hover:bg-bolt-elements-background-depth-3',
           'transition-all duration-200',
-          'rounded-lg p-4',
+          'rounded-[var(--bolt-border-radius)] p-4',
           'group',
         )}
         initial={{ opacity: 0, y: 20 }}
@@ -251,7 +251,7 @@ export default function FeaturesTab() {
         <div className="flex items-center gap-4">
           <div
             className={classNames(
-              'p-2 rounded-lg text-xl',
+              'p-2 rounded-[var(--bolt-border-radius)] text-xl',
               'bg-bolt-elements-background-depth-3 group-hover:bg-bolt-elements-background-depth-4',
               'transition-colors duration-200',
               'text-sky-500',
@@ -274,7 +274,7 @@ export default function FeaturesTab() {
               toast.success('Prompt template updated');
             }}
             className={classNames(
-              'p-2 rounded-lg text-sm min-w-[200px]',
+              'p-2 rounded-[var(--bolt-border-radius)] text-sm min-w-[200px]',
               'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
               'text-bolt-elements-textPrimary',
               'focus:outline-none focus:ring-2 focus:ring-sky-500/30',

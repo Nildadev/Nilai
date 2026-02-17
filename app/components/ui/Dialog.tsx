@@ -22,9 +22,9 @@ export const DialogButton = memo(({ type, children, onClick, disabled }: DialogB
   return (
     <button
       className={classNames(
-        'inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors',
+        'inline-flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius-sm)] text-sm transition-all active:scale-95',
         type === 'primary'
-          ? 'bg-sky-500 text-white hover:bg-sky-600 dark:bg-sky-500 dark:hover:bg-sky-600'
+          ? 'bg-sky-500 text-white hover:bg-sky-600 shadow-[var(--bolt-shadow-sm)]'
           : type === 'secondary'
             ? 'bg-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
             : 'bg-transparent text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10',
@@ -105,7 +105,7 @@ export const Dialog = memo(({ children, className, showCloseButton = true, onClo
     <RadixDialog.Portal>
       <RadixDialog.Overlay asChild>
         <motion.div
-          className={classNames('fixed inset-0 z-[9999] bg-black/70 dark:bg-black/80 backdrop-blur-sm')}
+          className={classNames('fixed inset-0 z-[10000] bg-black/70 dark:bg-black/80 backdrop-blur-sm')}
           initial="closed"
           animate="open"
           exit="closed"
@@ -116,7 +116,7 @@ export const Dialog = memo(({ children, className, showCloseButton = true, onClo
       <RadixDialog.Content asChild>
         <motion.div
           className={classNames(
-            'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-950 rounded-lg shadow-xl border border-bolt-elements-borderColor z-[9999] w-[520px] focus:outline-none',
+            'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-950 rounded-[var(--bolt-border-radius)] shadow-2xl border border-bolt-elements-borderColor z-[10001] w-[95vw] max-w-[520px] focus:outline-none',
             className,
           )}
           initial="closed"
@@ -345,7 +345,7 @@ export function SelectionDialog({
       <div
         key={item.id}
         className={classNames(
-          'flex items-start space-x-3 p-2 rounded-md transition-colors',
+          'flex items-start space-x-3 p-2 rounded-[var(--bolt-border-radius-sm)] transition-colors',
           selectedItems.includes(item.id)
             ? 'bg-bolt-elements-item-backgroundAccent'
             : 'bg-bolt-elements-bg-depth-2 hover:bg-bolt-elements-item-backgroundActive',
@@ -405,7 +405,7 @@ export function SelectionDialog({
             </div>
 
             <div
-              className="pr-2 border rounded-md border-bolt-elements-borderColor bg-bolt-elements-bg-depth-2"
+              className="pr-2 border rounded-[var(--bolt-border-radius-sm)] border-bolt-elements-borderColor bg-bolt-elements-bg-depth-2"
               style={{
                 maxHeight,
               }}

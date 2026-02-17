@@ -70,7 +70,7 @@ export default function VercelConnection() {
 
   return (
     <motion.div
-      className="bg-[#FFFFFF] dark:bg-[#0A0A0A] rounded-lg border border-[#E5E5E5] dark:border-[#1A1A1A]"
+      className="bg-[#FFFFFF] dark:bg-[#0A0A0A] rounded-[var(--bolt-border-radius)] border border-[#E5E5E5] dark:border-[#1A1A1A]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
@@ -100,7 +100,7 @@ export default function VercelConnection() {
                 disabled={connecting}
                 placeholder="Enter your Vercel personal access token"
                 className={classNames(
-                  'w-full px-3 py-2 rounded-lg text-sm',
+                  'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                   'bg-[#F8F8F8] dark:bg-[#1A1A1A]',
                   'border border-[#E5E5E5] dark:border-[#333333]',
                   'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
@@ -125,7 +125,7 @@ export default function VercelConnection() {
               onClick={handleConnect}
               disabled={connecting || !connection.token}
               className={classNames(
-                'px-4 py-2 rounded-lg text-sm flex items-center gap-2',
+                'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm flex items-center gap-2',
                 'bg-[#303030] text-white',
                 'hover:bg-[#5E41D0] hover:text-white',
                 'disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200',
@@ -152,7 +152,7 @@ export default function VercelConnection() {
                 <button
                   onClick={handleDisconnect}
                   className={classNames(
-                    'px-4 py-2 rounded-lg text-sm flex items-center gap-2',
+                    'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm flex items-center gap-2',
                     'bg-red-500 text-white',
                     'hover:bg-red-600',
                   )}
@@ -167,7 +167,7 @@ export default function VercelConnection() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 p-4 bg-[#F8F8F8] dark:bg-[#1A1A1A] rounded-lg">
+            <div className="flex items-center gap-4 p-4 bg-[#F8F8F8] dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)]">
               {/* Debug output */}
               <pre className="hidden">{JSON.stringify(connection.user, null, 2)}</pre>
 
@@ -216,7 +216,7 @@ export default function VercelConnection() {
                         href={`https://vercel.com/dashboard/${project.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block p-4 rounded-lg border border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive transition-colors"
+                        className="block p-4 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive transition-colors"
                       >
                         <div className="flex items-center justify-between">
                           <div>
@@ -263,7 +263,7 @@ export default function VercelConnection() {
                             </div>
                           </div>
                           {project.framework && (
-                            <div className="text-xs text-bolt-elements-textSecondary px-2 py-1 rounded-md bg-[#F0F0F0] dark:bg-[#252525]">
+                            <div className="text-xs text-bolt-elements-textSecondary px-2 py-1 rounded-[var(--bolt-border-radius-sm)] bg-[#F0F0F0] dark:bg-[#252525]">
                               <span className="flex items-center gap-1">
                                 <div className="i-ph:code w-3 h-3" />
                                 {project.framework}

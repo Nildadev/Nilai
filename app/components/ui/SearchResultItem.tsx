@@ -84,7 +84,7 @@ export function SearchResultItem({
               e.stopPropagation();
               onAction();
             }}
-            className="px-4 py-2 h-9 rounded-lg bg-sky-500 text-white hover:bg-sky-600 transition-all duration-200 flex items-center gap-2 min-w-[100px] justify-center text-sm shadow-sm hover:shadow-md"
+            className="px-4 py-2 h-9 rounded-[var(--bolt-border-radius)] bg-sky-500 text-white hover:bg-sky-600 transition-all duration-200 flex items-center gap-2 min-w-[100px] justify-center text-sm shadow-sm hover:shadow-md"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -94,7 +94,7 @@ export function SearchResultItem({
       </div>
 
       {description && (
-        <div className="mb-4 bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm p-3 rounded-lg border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
+        <div className="mb-4 bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm p-3 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
           <p className="text-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark line-clamp-2">
             {description}
           </p>

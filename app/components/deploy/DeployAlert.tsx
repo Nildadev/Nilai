@@ -21,7 +21,7 @@ export default function DeployChatAlert({ alert, clearAlert, postMessage }: Depl
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className={`rounded-lg border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 p-4 mb-2`}
+        className={`rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2 p-4 mb-2`}
       >
         <div className="flex items-start">
           {/* Icon */}
@@ -163,7 +163,7 @@ export default function DeployChatAlert({ alert, clearAlert, postMessage }: Depl
                       postMessage(`*Fix this deployment error*\n\`\`\`\n${content || description}\n\`\`\`\n`)
                     }
                     className={classNames(
-                      `px-2 py-1.5 rounded-md text-sm font-medium`,
+                      `px-2 py-1.5 rounded-[var(--bolt-border-radius-sm)] text-sm font-medium`,
                       'bg-bolt-elements-button-primary-background',
                       'hover:bg-bolt-elements-button-primary-backgroundHover',
                       'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bolt-elements-button-danger-background',
@@ -178,7 +178,7 @@ export default function DeployChatAlert({ alert, clearAlert, postMessage }: Depl
                 <button
                   onClick={clearAlert}
                   className={classNames(
-                    `px-2 py-1.5 rounded-md text-sm font-medium`,
+                    `px-2 py-1.5 rounded-[var(--bolt-border-radius-sm)] text-sm font-medium`,
                     'bg-bolt-elements-button-secondary-background',
                     'hover:bg-bolt-elements-button-secondary-backgroundHover',
                     'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-bolt-elements-button-secondary-background',

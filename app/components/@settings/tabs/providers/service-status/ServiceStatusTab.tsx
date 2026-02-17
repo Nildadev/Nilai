@@ -104,7 +104,7 @@ export default function ServiceStatusTab() {
         {serviceStatuses.map((service) => (
           <div
             key={service.provider}
-            className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+            className="p-4 bg-white dark:bg-gray-800 rounded-[var(--bolt-border-radius)] border border-gray-200 dark:border-gray-700"
           >
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{service.provider}</h3>

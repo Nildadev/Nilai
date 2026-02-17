@@ -41,7 +41,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-[#F5F5F5] dark:bg-[#1A1A1A] border border-[#E5E5E5] dark:border-[#1A1A1A]">
+            <div className="p-2 rounded-[var(--bolt-border-radius)] bg-[#F5F5F5] dark:bg-[#1A1A1A] border border-[#E5E5E5] dark:border-[#1A1A1A]">
               <div className="i-ph:plug-fill text-bolt-elements-textTertiary" />
             </div>
             <div>
@@ -62,7 +62,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
               value={authState.username}
               onChange={(e) => setAuthState((prev: GitHubAuthState) => ({ ...prev, username: e.target.value }))}
               className={classNames(
-                'w-full px-4 py-2.5 bg-[#F5F5F5] dark:bg-[#1A1A1A] border rounded-lg',
+                'w-full px-4 py-2.5 bg-[#F5F5F5] dark:bg-[#1A1A1A] border rounded-[var(--bolt-border-radius)]',
                 'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary text-base',
                 'border-[#E5E5E5] dark:border-[#1A1A1A]',
                 'focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500',
@@ -113,7 +113,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
                 }))
               }
               className={classNames(
-                'w-full px-4 py-2.5 bg-[#F5F5F5] dark:bg-[#1A1A1A] border rounded-lg',
+                'w-full px-4 py-2.5 bg-[#F5F5F5] dark:bg-[#1A1A1A] border rounded-[var(--bolt-border-radius)]',
                 'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary text-base',
                 'border-[#E5E5E5] dark:border-[#1A1A1A]',
                 'focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500',
@@ -130,7 +130,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
                   type="submit"
                   disabled={authState.isVerifying || !authState.username || !authState.tokenInfo?.token}
                   className={classNames(
-                    'inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                    'inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
                     'bg-sky-500 hover:bg-sky-600',
                     'text-white',
                     'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -153,7 +153,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
                   <button
                     onClick={onDisconnect}
                     className={classNames(
-                      'inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                      'inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
                       'bg-[#F5F5F5] hover:bg-red-500/10 hover:text-red-500',
                       'dark:bg-[#1A1A1A] dark:hover:bg-red-500/20 dark:hover:text-red-500',
                       'text-bolt-elements-textPrimary',
@@ -162,7 +162,7 @@ export function ConnectionForm({ authState, setAuthState, onSave, onDisconnect }
                     <div className="i-ph:plug-fill" />
                     <span>Disconnect</span>
                   </button>
-                  <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-green-600 dark:text-green-400 bg-green-500/5 rounded-lg border border-green-500/20">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-green-600 dark:text-green-400 bg-green-500/5 rounded-[var(--bolt-border-radius)] border border-green-500/20">
                     <div className="i-ph:check-circle-fill" />
                     <span>Connected</span>
                   </span>

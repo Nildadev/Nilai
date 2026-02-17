@@ -63,7 +63,7 @@ export default function SettingsTab() {
     <div className="space-y-4">
       {/* Language & Notifications */}
       <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4 space-y-4"
+        className="bg-white dark:bg-[#0A0A0A] rounded-[var(--bolt-border-radius)] shadow-sm dark:shadow-none p-4 space-y-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
@@ -82,7 +82,7 @@ export default function SettingsTab() {
             value={settings.language}
             onChange={(e) => setSettings((prev) => ({ ...prev, language: e.target.value }))}
             className={classNames(
-              'w-full px-3 py-2 rounded-lg text-sm',
+              'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
               'text-bolt-elements-textPrimary',
@@ -143,7 +143,7 @@ export default function SettingsTab() {
 
       {/* Timezone */}
       <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4"
+        className="bg-white dark:bg-[#0A0A0A] rounded-[var(--bolt-border-radius)] shadow-sm dark:shadow-none p-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -162,7 +162,7 @@ export default function SettingsTab() {
             value={settings.timezone}
             onChange={(e) => setSettings((prev) => ({ ...prev, timezone: e.target.value }))}
             className={classNames(
-              'w-full px-3 py-2 rounded-lg text-sm',
+              'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
               'text-bolt-elements-textPrimary',
@@ -177,7 +177,7 @@ export default function SettingsTab() {
 
       {/* Simplified Keyboard Shortcuts */}
       <motion.div
-        className="bg-white dark:bg-[#0A0A0A] rounded-lg shadow-sm dark:shadow-none p-4"
+        className="bg-white dark:bg-[#0A0A0A] rounded-[var(--bolt-border-radius)] shadow-sm dark:shadow-none p-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
@@ -188,7 +188,7 @@ export default function SettingsTab() {
         </div>
 
         <div className="space-y-2">
-          <div className="flex items-center justify-between p-2 rounded-lg bg-[#FAFAFA] dark:bg-[#1A1A1A]">
+          <div className="flex items-center justify-between p-2 rounded-[var(--bolt-border-radius)] bg-[#FAFAFA] dark:bg-[#1A1A1A]">
             <div className="flex flex-col">
               <span className="text-sm text-bolt-elements-textPrimary">Toggle Theme</span>
               <span className="text-xs text-bolt-elements-textSecondary">Switch between light and dark mode</span>

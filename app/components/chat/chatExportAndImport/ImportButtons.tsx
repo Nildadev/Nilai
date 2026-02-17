@@ -86,7 +86,7 @@ export function ImportButtons(importChat: ((description: string, messages: Messa
               'hover:bg-bolt-elements-background-depth-2',
               'border border-[rgba(0,0,0,0.08)] dark:border-[rgba(255,255,255,0.08)]',
               'h-10 px-4 py-2 min-w-[120px] justify-center',
-              'transition-all duration-200 ease-in-out rounded-lg',
+              'transition-all duration-200 ease-in-out rounded-[var(--bolt-border-radius)]',
             )}
           />
         </div>

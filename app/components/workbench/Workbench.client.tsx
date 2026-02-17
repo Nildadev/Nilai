@@ -92,7 +92,7 @@ const FileModifiedDropdown = memo(
         <Popover className="relative">
           {({ open }: { open: boolean }) => (
             <>
-              <Popover.Button className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-lg bg-bolt-elements-background-depth-2 hover:bg-bolt-elements-background-depth-3 transition-colors text-bolt-elements-item-contentDefault">
+              <Popover.Button className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-2 hover:bg-bolt-elements-background-depth-3 transition-colors text-bolt-elements-item-contentDefault">
                 <span>File Changes</span>
                 {hasChanges && (
                   <span className="w-5 h-5 rounded-full bg-accent-500/20 text-accent-500 text-xs flex items-center justify-center border border-accent-500/30">
@@ -117,7 +117,7 @@ const FileModifiedDropdown = memo(
                         placeholder="Search files..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-8 pr-3 py-1.5 text-sm rounded-lg bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor focus:outline-none focus:ring-2 focus:ring-sky-500/50"
+                        className="w-full pl-8 pr-3 py-1.5 text-sm rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor focus:outline-none focus:ring-2 focus:ring-sky-500/50"
                       />
                       <div className="absolute left-2 top-1/2 -translate-y-1/2 text-bolt-elements-textTertiary">
                         <div className="i-ph:magnifying-glass" />
@@ -134,7 +134,7 @@ const FileModifiedDropdown = memo(
                             <button
                               key={filePath}
                               onClick={() => onSelectFile(filePath)}
-                              className="w-full px-3 py-2 text-left rounded-md hover:bg-bolt-elements-background-depth-1 transition-colors group bg-transparent"
+                              className="w-full px-3 py-2 text-left rounded-[var(--bolt-border-radius-sm)] hover:bg-bolt-elements-background-depth-1 transition-colors group bg-transparent"
                             >
                               <div className="flex items-center gap-2">
                                 <div className="shrink-0 w-5 h-5 text-bolt-elements-textTertiary">
@@ -261,7 +261,7 @@ const FileModifiedDropdown = memo(
                             icon: <div className="i-ph:check-circle text-accent-500" />,
                           });
                         }}
-                        className="w-full flex items-center justify-center gap-2 px-3 py-1.5 text-sm rounded-lg bg-bolt-elements-background-depth-1 hover:bg-bolt-elements-background-depth-3 transition-colors text-bolt-elements-textTertiary hover:text-bolt-elements-textPrimary"
+                        className="w-full flex items-center justify-center gap-2 px-3 py-1.5 text-sm rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1 hover:bg-bolt-elements-background-depth-3 transition-colors text-bolt-elements-textTertiary hover:text-bolt-elements-textPrimary"
                       >
                         Copy File List
                       </button>
@@ -380,7 +380,7 @@ export const Workbench = memo(
             )}
           >
             <div className="absolute inset-0 px-2 lg:px-6">
-              <div className="h-full flex flex-col bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-sm rounded-lg overflow-hidden">
+              <div className="h-full flex flex-col bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor shadow-sm rounded-[var(--bolt-border-radius)] overflow-hidden">
                 <div className="flex items-center px-3 py-2 border-b border-bolt-elements-borderColor gap-1">
                   <Slider selected={selectedView} options={sliderOptions} setSelected={setSelectedView} />
                   <div className="ml-auto" />
@@ -396,7 +396,7 @@ export const Workbench = memo(
                         Toggle Terminal
                       </PanelHeaderButton>
                       <DropdownMenu.Root>
-                        <DropdownMenu.Trigger className="text-sm flex items-center gap-1 text-bolt-elements-item-contentDefault bg-transparent enabled:hover:text-bolt-elements-item-contentActive rounded-md p-1 enabled:hover:bg-bolt-elements-item-backgroundActive disabled:cursor-not-allowed">
+                        <DropdownMenu.Trigger className="text-sm flex items-center gap-1 text-bolt-elements-item-contentDefault bg-transparent enabled:hover:text-bolt-elements-item-contentActive rounded-[var(--bolt-border-radius-sm)] p-1 enabled:hover:bg-bolt-elements-item-backgroundActive disabled:cursor-not-allowed">
                           <div className="i-ph:box-arrow-up" />
                           Sync & Export
                         </DropdownMenu.Trigger>
@@ -404,7 +404,7 @@ export const Workbench = memo(
                           className={classNames(
                             'min-w-[240px] z-[250]',
                             'bg-white dark:bg-[#141414]',
-                            'rounded-lg shadow-lg',
+                            'rounded-[var(--bolt-border-radius)] shadow-lg',
                             'border border-gray-200/50 dark:border-gray-800/50',
                             'animate-in fade-in-0 zoom-in-95',
                             'py-1',
@@ -414,7 +414,7 @@ export const Workbench = memo(
                         >
                           <DropdownMenu.Item
                             className={classNames(
-                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-md group relative',
+                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-[var(--bolt-border-radius-sm)] group relative',
                             )}
                             onClick={() => {
                               workbenchStore.downloadZip();
@@ -427,7 +427,7 @@ export const Workbench = memo(
                           </DropdownMenu.Item>
                           <DropdownMenu.Item
                             className={classNames(
-                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-md group relative',
+                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-[var(--bolt-border-radius-sm)] group relative',
                             )}
                             onClick={handleSyncFiles}
                             disabled={isSyncing}
@@ -439,7 +439,7 @@ export const Workbench = memo(
                           </DropdownMenu.Item>
                           <DropdownMenu.Item
                             className={classNames(
-                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-md group relative',
+                              'cursor-pointer flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-[var(--bolt-border-radius-sm)] group relative',
                             )}
                             onClick={() => setIsPushDialogOpen(true)}
                           >

@@ -57,7 +57,7 @@ export function CreateBranchDialog({ isOpen, onClose, onConfirm, repository, bra
                   onChange={(e) => setBranchName(e.target.value)}
                   placeholder="feature/my-new-branch"
                   className={classNames(
-                    'w-full px-3 py-2 rounded-lg',
+                    'w-full px-3 py-2 rounded-[var(--bolt-border-radius)]',
                     'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                     'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                     'text-bolt-elements-textPrimary placeholder:text-bolt-elements-textTertiary',
@@ -79,7 +79,7 @@ export function CreateBranchDialog({ isOpen, onClose, onConfirm, repository, bra
                   value={sourceBranch}
                   onChange={(e) => setSourceBranch(e.target.value)}
                   className={classNames(
-                    'w-full px-3 py-2 rounded-lg',
+                    'w-full px-3 py-2 rounded-[var(--bolt-border-radius)]',
                     'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                     'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                     'text-bolt-elements-textPrimary',
@@ -94,7 +94,7 @@ export function CreateBranchDialog({ isOpen, onClose, onConfirm, repository, bra
                 </select>
               </div>
 
-              <div className="mt-4 p-3 bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-lg">
+              <div className="mt-4 p-3 bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)]">
                 <h4 className="text-sm font-medium text-bolt-elements-textSecondary mb-2">Branch Overview</h4>
                 <ul className="space-y-2 text-sm text-bolt-elements-textSecondary">
                   <li className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export function CreateBranchDialog({ isOpen, onClose, onConfirm, repository, bra
                 type="button"
                 onClick={onClose}
                 className={classNames(
-                  'px-4 py-2 rounded-lg text-sm font-medium',
+                  'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm font-medium',
                   'text-bolt-elements-textPrimary',
                   'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                   'hover:bg-sky-500/10 hover:text-sky-500',
@@ -133,7 +133,7 @@ export function CreateBranchDialog({ isOpen, onClose, onConfirm, repository, bra
               <button
                 type="submit"
                 className={classNames(
-                  'px-4 py-2 rounded-lg text-sm font-medium',
+                  'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm font-medium',
                   'text-white bg-sky-500',
                   'hover:bg-sky-600',
                   'transition-colors',

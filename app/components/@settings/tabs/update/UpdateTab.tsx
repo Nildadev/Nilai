@@ -365,7 +365,7 @@ const UpdateTab = () => {
               value={updateSettings.checkInterval}
               onChange={(e) => setUpdateSettings((prev) => ({ ...prev, checkInterval: Number(e.target.value) }))}
               className={classNames(
-                'px-3 py-2 rounded-lg text-sm',
+                'px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                 'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                 'text-bolt-elements-textPrimary',
@@ -399,7 +399,7 @@ const UpdateTab = () => {
               <button
                 onClick={handleUpdate}
                 className={classNames(
-                  'flex items-center gap-2 px-4 py-2 rounded-lg text-sm',
+                  'flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                   'bg-sky-500 text-white',
                   'hover:bg-sky-600',
                   'transition-colors duration-200',
@@ -415,7 +415,7 @@ const UpdateTab = () => {
                 checkForUpdates();
               }}
               className={classNames(
-                'flex items-center gap-2 px-4 py-2 rounded-lg text-sm',
+                'flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                 'hover:bg-sky-500/10 hover:text-sky-500',
                 'dark:hover:bg-sky-500/20 dark:hover:text-sky-500',
@@ -470,7 +470,7 @@ const UpdateTab = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={classNames(
-                    'flex items-center gap-2 px-4 py-2 rounded-lg text-sm',
+                    'flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                     'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                     'hover:bg-sky-500/10 hover:text-sky-500',
                     'dark:hover:bg-sky-500/20 dark:hover:text-sky-500',
@@ -501,7 +501,7 @@ const UpdateTab = () => {
               <div className="i-ph:scroll text-sky-500 w-5 h-5" />
               <p className="font-medium">Changelog</p>
             </div>
-            <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-lg p-4 overflow-auto max-h-[300px]">
+            <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)] p-4 overflow-auto max-h-[300px]">
               <div className="prose dark:prose-invert prose-sm max-w-none">
                 <Markdown>{updateProgress.details.changelog}</Markdown>
               </div>
@@ -517,7 +517,7 @@ const UpdateTab = () => {
               target="_blank"
               rel="noopener noreferrer"
               className={classNames(
-                'flex items-center gap-2 px-4 py-2 rounded-lg text-sm',
+                'flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                 'hover:bg-sky-500/10 hover:text-sky-500',
                 'dark:hover:bg-sky-500/20 dark:hover:text-sky-500',
@@ -535,7 +535,7 @@ const UpdateTab = () => {
         {updateProgress?.details?.commitMessages && updateProgress.details.commitMessages.length > 0 && (
           <div className="mb-6">
             <p className="font-medium mb-2">Changes in this Update:</p>
-            <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-lg p-4 overflow-auto max-h-[400px]">
+            <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)] p-4 overflow-auto max-h-[400px]">
               <div className="prose dark:prose-invert prose-sm max-w-none">
                 {updateProgress.details.commitMessages.map((section, index) => (
                   <Markdown key={index}>{section}</Markdown>
@@ -564,7 +564,7 @@ const UpdateTab = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classNames(
-                      'flex items-center gap-2 px-4 py-2 rounded-lg text-sm',
+                      'flex items-center gap-2 px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                       'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
                       'hover:bg-sky-500/10 hover:text-sky-500',
                       'dark:hover:bg-sky-500/20 dark:hover:text-sky-500',
@@ -582,7 +582,7 @@ const UpdateTab = () => {
               {updateProgress?.details?.commitMessages && updateProgress.details.commitMessages.length > 0 && (
                 <div className="mb-6">
                   <p className="font-medium mb-2">Commit Messages:</p>
-                  <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-lg p-3 space-y-2">
+                  <div className="bg-[#F5F5F5] dark:bg-[#1A1A1A] rounded-[var(--bolt-border-radius)] p-3 space-y-2">
                     {updateProgress.details.commitMessages.map((msg, index) => (
                       <div key={index} className="text-sm text-bolt-elements-textSecondary flex items-start gap-2">
                         <div className="i-ph:git-commit text-sky-500 w-4 h-4 mt-0.5 flex-shrink-0" />

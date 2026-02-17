@@ -26,7 +26,7 @@ export function StatsDialog({ isOpen, onClose, onConfirm, stats, isLargeRepo }: 
             transition={{ duration: 0.2 }}
             className="w-[90vw] md:w-[500px]"
           >
-            <Dialog.Content className="bg-white dark:bg-bolt-elements-background-depth-1 rounded-lg border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark shadow-xl">
+            <Dialog.Content className="bg-white dark:bg-bolt-elements-background-depth-1 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark shadow-xl">
               <div className="p-6 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-bolt-elements-background-depth-3 flex items-center justify-center text-sky-500">
@@ -42,12 +42,12 @@ export function StatsDialog({ isOpen, onClose, onConfirm, stats, isLargeRepo }: 
                   </div>
                 </div>
 
-                <div className="mt-4 bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 p-4 rounded-lg">
+                <div className="mt-4 bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 p-4 rounded-[var(--bolt-border-radius)]">
                   <RepoStats stats={stats} />
                 </div>
 
                 {isLargeRepo && (
-                  <div className="p-3 bg-yellow-50 dark:bg-yellow-500/10 rounded-lg text-sm flex items-start gap-2">
+                  <div className="p-3 bg-yellow-50 dark:bg-yellow-500/10 rounded-[var(--bolt-border-radius)] text-sm flex items-start gap-2">
                     <span className="i-ph:warning text-yellow-600 dark:text-yellow-500 w-4 h-4 flex-shrink-0 mt-0.5" />
                     <div className="text-yellow-800 dark:text-yellow-500">
                       This repository is quite large ({formatSize(stats.totalSize)}). Importing it might take a while
@@ -59,7 +59,7 @@ export function StatsDialog({ isOpen, onClose, onConfirm, stats, isLargeRepo }: 
               <div className="border-t border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark p-4 flex justify-end gap-3 bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 rounded-b-lg">
                 <motion.button
                   onClick={onClose}
-                  className="px-4 py-2 rounded-lg bg-bolt-elements-background-depth-3 dark:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary dark:text-bolt-elements-textSecondary-dark dark:hover:text-bolt-elements-textPrimary-dark transition-colors"
+                  className="px-4 py-2 rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-3 dark:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary dark:text-bolt-elements-textSecondary-dark dark:hover:text-bolt-elements-textPrimary-dark transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -67,7 +67,7 @@ export function StatsDialog({ isOpen, onClose, onConfirm, stats, isLargeRepo }: 
                 </motion.button>
                 <motion.button
                   onClick={onConfirm}
-                  className="px-4 py-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600 transition-colors"
+                  className="px-4 py-2 rounded-[var(--bolt-border-radius)] bg-sky-500 text-white hover:bg-sky-600 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

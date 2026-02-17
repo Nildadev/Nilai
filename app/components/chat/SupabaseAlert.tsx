@@ -99,7 +99,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className="max-w-chat rounded-lg border-l-2 border-l-[#098F5F] border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2"
+        className="max-w-chat rounded-[var(--bolt-border-radius)] border-l-2 border-l-[#098F5F] border border-bolt-elements-borderColor bg-bolt-elements-background-depth-2"
       >
         {/* Header */}
         <div className="p-4 pb-2">
@@ -112,7 +112,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
         {/* SQL Content */}
         <div className="px-4">
           {!isConnected ? (
-            <div className="p-3 rounded-md bg-bolt-elements-background-depth-3">
+            <div className="p-3 rounded-[var(--bolt-border-radius-sm)] bg-bolt-elements-background-depth-3">
               <span className="text-sm text-bolt-elements-textPrimary">
                 You must first connect to Supabase and select a project.
               </span>
@@ -120,7 +120,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
           ) : (
             <>
               <div
-                className="flex items-center p-2 rounded-md bg-bolt-elements-background-depth-3 cursor-pointer"
+                className="flex items-center p-2 rounded-[var(--bolt-border-radius-sm)] bg-bolt-elements-background-depth-3 cursor-pointer"
                 onClick={() => setIsCollapsed(!isCollapsed)}
               >
                 <div className="i-ph:database text-bolt-elements-textPrimary mr-2"></div>
@@ -133,7 +133,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
               </div>
 
               {!isCollapsed && content && (
-                <div className="mt-2 p-3 bg-bolt-elements-background-depth-4 rounded-md overflow-auto max-h-60 font-mono text-xs text-bolt-elements-textSecondary">
+                <div className="mt-2 p-3 bg-bolt-elements-background-depth-4 rounded-[var(--bolt-border-radius-sm)] overflow-auto max-h-60 font-mono text-xs text-bolt-elements-textSecondary">
                   <pre>{cleanSqlContent(content)}</pre>
                 </div>
               )}
@@ -150,7 +150,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
               <button
                 onClick={handleConnectClick}
                 className={classNames(
-                  `px-3 py-2 rounded-md text-sm font-medium`,
+                  `px-3 py-2 rounded-[var(--bolt-border-radius-sm)] text-sm font-medium`,
                   'bg-[#098F5F]',
                   'hover:bg-[#0aa06c]',
                   'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
@@ -165,7 +165,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
                 onClick={() => executeSupabaseAction(content)}
                 disabled={isExecuting}
                 className={classNames(
-                  `px-3 py-2 rounded-md text-sm font-medium`,
+                  `px-3 py-2 rounded-[var(--bolt-border-radius-sm)] text-sm font-medium`,
                   'bg-[#098F5F]',
                   'hover:bg-[#0aa06c]',
                   'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
@@ -181,7 +181,7 @@ export function SupabaseChatAlert({ alert, clearAlert, postMessage }: Props) {
               onClick={clearAlert}
               disabled={isExecuting}
               className={classNames(
-                `px-3 py-2 rounded-md text-sm font-medium`,
+                `px-3 py-2 rounded-[var(--bolt-border-radius-sm)] text-sm font-medium`,
                 'bg-[#503B26]',
                 'hover:bg-[#774f28]',
                 'focus:outline-none',

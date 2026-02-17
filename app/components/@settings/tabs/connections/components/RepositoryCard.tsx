@@ -79,7 +79,7 @@ export function RepositoryCard({ repo, onSelect }: RepositoryCardProps) {
         </div>
         <motion.button
           onClick={onSelect}
-          className="px-4 py-2 h-9 rounded-lg bg-sky-500 text-white hover:bg-sky-600 transition-all duration-200 flex items-center gap-2 min-w-[100px] justify-center text-sm shadow-sm hover:shadow-md"
+          className="px-4 py-2 h-9 rounded-[var(--bolt-border-radius)] bg-sky-500 text-white hover:bg-sky-600 transition-all duration-200 flex items-center gap-2 min-w-[100px] justify-center text-sm shadow-sm hover:shadow-md"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -89,7 +89,7 @@ export function RepositoryCard({ repo, onSelect }: RepositoryCardProps) {
       </div>
 
       {repo.description && (
-        <div className="mb-4 bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm p-3 rounded-lg border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
+        <div className="mb-4 bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm p-3 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
           <p className="text-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark line-clamp-2">
             {repo.description}
           </p>
@@ -98,23 +98,23 @@ export function RepositoryCard({ repo, onSelect }: RepositoryCardProps) {
 
       <div className="flex flex-wrap items-center gap-2">
         {repo.private && (
-          <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs">
+          <span className="flex items-center gap-1 px-2 py-1 rounded-[var(--bolt-border-radius)] bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs">
             <span className="i-ph:lock w-3 h-3" />
             Private
           </span>
         )}
         {repo.language && (
-          <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
+          <span className="flex items-center gap-1 px-2 py-1 rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
             <span className="i-ph:code w-3 h-3" />
             {repo.language}
           </span>
         )}
-        <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
+        <span className="flex items-center gap-1 px-2 py-1 rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
           <span className="i-ph:star w-3 h-3" />
           {repo.stargazers_count.toLocaleString()}
         </span>
         {repo.forks_count > 0 && (
-          <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
+          <span className="flex items-center gap-1 px-2 py-1 rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1/50 dark:bg-bolt-elements-background-depth-4/50 backdrop-blur-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark text-xs border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30">
             <span className="i-ph:git-fork w-3 h-3" />
             {repo.forks_count.toLocaleString()}
           </span>

@@ -78,7 +78,7 @@ export const Artifact = memo(({ messageId }: ArtifactProps) => {
 
   return (
     <>
-      <div className="artifact border border-bolt-elements-borderColor flex flex-col overflow-hidden rounded-lg w-full transition-border duration-150">
+      <div className="artifact border border-bolt-elements-borderColor flex flex-col overflow-hidden rounded-[var(--bolt-border-radius)] w-full transition-border duration-150">
         <div className="flex">
           <button
             className="flex items-stretch bg-bolt-elements-artifacts-background hover:bg-bolt-elements-artifacts-backgroundHover w-full overflow-hidden"
@@ -233,7 +233,7 @@ const ActionList = memo(({ actions }: ActionListProps) => {
                   <div>
                     Create{' '}
                     <code
-                      className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-md text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
+                      className="bg-bolt-elements-artifacts-inlineCode-background text-bolt-elements-artifacts-inlineCode-text px-1.5 py-1 rounded-[var(--bolt-border-radius-sm)] text-bolt-elements-item-contentAccent hover:underline cursor-pointer"
                       onClick={() => openArtifactInWorkbench(action.filePath)}
                     >
                       {action.filePath}

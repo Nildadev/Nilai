@@ -70,7 +70,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
   return (
     <div className="flex">
       <div className="relative" ref={dropdownRef}>
-        <div className="flex border border-bolt-elements-borderColor rounded-md overflow-hidden mr-2 text-sm">
+        <div className="flex border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)] overflow-hidden mr-2 text-sm">
           <Button
             active
             disabled={isDeploying || !activePreview || isStreaming}
@@ -85,7 +85,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
         </div>
 
         {isDropdownOpen && (
-          <div className="absolute right-2 flex flex-col gap-1 z-50 p-1 mt-1 min-w-[13.5rem] bg-bolt-elements-background-depth-2 rounded-md shadow-lg bg-bolt-elements-backgroundDefault border border-bolt-elements-borderColor">
+          <div className="absolute right-2 flex flex-col gap-1 z-50 p-1 mt-1 min-w-[13.5rem] bg-bolt-elements-background-depth-2 rounded-[var(--bolt-border-radius-sm)] shadow-lg bg-bolt-elements-backgroundDefault border border-bolt-elements-borderColor">
             <Button
               active
               onClick={() => {
@@ -93,7 +93,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
                 setIsDropdownOpen(false);
               }}
               disabled={isDeploying || !activePreview || !netlifyConn.user}
-              className="flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-md group relative"
+              className="flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-[var(--bolt-border-radius-sm)] group relative"
             >
               <img
                 className="w-5 h-5"
@@ -114,7 +114,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
                 setIsDropdownOpen(false);
               }}
               disabled={isDeploying || !activePreview || !vercelConn.user}
-              className="flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-md group relative"
+              className="flex items-center w-full px-4 py-2 text-sm text-bolt-elements-textPrimary hover:bg-bolt-elements-item-backgroundActive gap-2 rounded-[var(--bolt-border-radius-sm)] group relative"
             >
               <img
                 className="w-5 h-5 bg-black p-1 rounded"
@@ -130,7 +130,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
             <Button
               active={false}
               disabled
-              className="flex items-center w-full rounded-md px-4 py-2 text-sm text-bolt-elements-textTertiary gap-2"
+              className="flex items-center w-full rounded-[var(--bolt-border-radius-sm)] px-4 py-2 text-sm text-bolt-elements-textTertiary gap-2"
             >
               <span className="sr-only">Coming Soon</span>
               <img
@@ -146,7 +146,7 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
           </div>
         )}
       </div>
-      <div className="flex border border-bolt-elements-borderColor rounded-md overflow-hidden">
+      <div className="flex border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)] overflow-hidden">
         <Button
           active={showChat}
           disabled={!canHideChat || isSmallViewport} // expand button is disabled on mobile as it's not needed

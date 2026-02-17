@@ -373,7 +373,7 @@ export default function LocalProvidersTab() {
         onClick={onUpdate}
         disabled={model.status === 'updating'}
         className={classNames(
-          'rounded-lg p-2',
+          'rounded-[var(--bolt-border-radius)] p-2',
           'bg-sky-500/10 text-sky-500',
           'hover:bg-sky-500/20',
           'transition-all duration-200',
@@ -396,7 +396,7 @@ export default function LocalProvidersTab() {
         onClick={onDelete}
         disabled={model.status === 'updating'}
         className={classNames(
-          'rounded-lg p-2',
+          'rounded-[var(--bolt-border-radius)] p-2',
           'bg-red-500/10 text-red-500',
           'hover:bg-red-500/20',
           'transition-all duration-200',
@@ -414,7 +414,7 @@ export default function LocalProvidersTab() {
   return (
     <div
       className={classNames(
-        'rounded-lg bg-bolt-elements-background text-bolt-elements-textPrimary shadow-sm p-4',
+        'rounded-[var(--bolt-border-radius)] bg-bolt-elements-background text-bolt-elements-textPrimary shadow-sm p-4',
         'hover:bg-bolt-elements-background-depth-2',
         'transition-all duration-200',
       )}
@@ -523,7 +523,7 @@ export default function LocalProvidersTab() {
                           defaultValue={provider.settings.baseUrl || OLLAMA_API_URL}
                           placeholder="Enter Ollama base URL"
                           className={classNames(
-                            'w-full px-3 py-2 rounded-lg text-sm',
+                            'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                             'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                             'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
                             'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
@@ -543,7 +543,7 @@ export default function LocalProvidersTab() {
                         <div
                           onClick={() => setEditingProvider(provider.name)}
                           className={classNames(
-                            'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
+                            'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm cursor-pointer',
                             'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                             'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
                             'transition-all duration-200',
@@ -586,7 +586,7 @@ export default function LocalProvidersTab() {
                         {Array.from({ length: 3 }).map((_, i) => (
                           <div
                             key={i}
-                            className="h-20 w-full bg-bolt-elements-background-depth-3 rounded-lg animate-pulse"
+                            className="h-20 w-full bg-bolt-elements-background-depth-3 rounded-[var(--bolt-border-radius)] animate-pulse"
                           />
                         ))}
                       </div>
@@ -757,7 +757,7 @@ export default function LocalProvidersTab() {
                               {(provider.settings.openAILikeConfigs || []).map((config) => (
                                 <div
                                   key={config.id}
-                                  className="p-3 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-1 space-y-3 relative"
+                                  className="p-3 border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] bg-bolt-elements-background-depth-1 space-y-3 relative"
                                 >
                                   <div className="flex items-center justify-between gap-2">
                                     <input
@@ -798,7 +798,7 @@ export default function LocalProvidersTab() {
                                           handleUpdateOpenAILikeConfig(provider, config.id, { baseUrl: e.target.value })
                                         }
                                         placeholder="https://api.example.com/v1"
-                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md"
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)]"
                                       />
                                     </div>
                                     <div className="space-y-1">
@@ -812,7 +812,7 @@ export default function LocalProvidersTab() {
                                           handleUpdateOpenAILikeConfig(provider, config.id, { apiKey: e.target.value })
                                         }
                                         placeholder="sk-..."
-                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md"
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-[var(--bolt-border-radius-sm)]"
                                       />
                                     </div>
                                   </div>
@@ -827,7 +827,7 @@ export default function LocalProvidersTab() {
                               <div
                                 onClick={() => setEditingProvider(provider.name)}
                                 className={classNames(
-                                  'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
+                                  'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm cursor-pointer',
                                   'bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor',
                                   'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
                                   'transition-all duration-200',
@@ -849,7 +849,7 @@ export default function LocalProvidersTab() {
                                 defaultValue={provider.settings.baseUrl}
                                 placeholder={`Enter ${provider.name} base URL`}
                                 className={classNames(
-                                  'w-full px-3 py-2 rounded-lg text-sm',
+                                  'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                                   'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                                   'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
                                   'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
@@ -869,7 +869,7 @@ export default function LocalProvidersTab() {
                               <div
                                 onClick={() => setEditingProvider(provider.name)}
                                 className={classNames(
-                                  'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
+                                  'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm cursor-pointer',
                                   'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                                   'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
                                   'transition-all duration-200',

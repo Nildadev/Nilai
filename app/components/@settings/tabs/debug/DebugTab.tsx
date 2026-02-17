@@ -176,7 +176,7 @@ const DependencySection = ({
           'border-b border-[#E5E5E5] dark:border-[#1A1A1A]',
           'transition-colors duration-200',
           'first:rounded-t-lg last:rounded-b-lg',
-          { 'hover:rounded-lg': !isOpen },
+          { 'hover:rounded-[var(--bolt-border-radius)]': !isOpen },
         )}
       >
         <div className="flex items-center gap-3">
@@ -1236,7 +1236,7 @@ export default function DebugTab() {
           onClick={() => setIsOpen(true)}
           className={classNames(
             'group flex items-center gap-2',
-            'rounded-lg px-3 py-1.5',
+            'rounded-[var(--bolt-border-radius)] px-3 py-1.5',
             'text-sm text-gray-900 dark:text-white',
             'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
@@ -1261,7 +1261,7 @@ export default function DebugTab() {
                   key={format.id}
                   onClick={() => handleFormatClick(format.handler)}
                   className={classNames(
-                    'flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-colors w-full text-left',
+                    'flex items-center gap-3 px-4 py-3 text-sm rounded-[var(--bolt-border-radius)] transition-colors w-full text-left',
                     'bg-white dark:bg-[#0A0A0A]',
                     'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                     'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -1494,7 +1494,7 @@ export default function DebugTab() {
                     {ollamaStatus.models.map((model) => (
                       <div
                         key={model.name}
-                        className="text-sm bg-bolt-elements-background-depth-3 hover:bg-bolt-elements-background-depth-4 rounded-lg px-4 py-3 flex items-center justify-between transition-colors group"
+                        className="text-sm bg-bolt-elements-background-depth-3 hover:bg-bolt-elements-background-depth-4 rounded-[var(--bolt-border-radius)] px-4 py-3 flex items-center justify-between transition-colors group"
                       >
                         <div className="flex items-center gap-2 text-bolt-elements-textSecondary">
                           <div className="i-ph:cube w-4 h-4 text-sky-500/70 group-hover:text-sky-500 transition-colors" />
@@ -1532,7 +1532,7 @@ export default function DebugTab() {
           onClick={getSystemInfo}
           disabled={loading.systemInfo}
           className={classNames(
-            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
             'bg-white dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
             'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -1553,7 +1553,7 @@ export default function DebugTab() {
           onClick={handleLogPerformance}
           disabled={loading.performance}
           className={classNames(
-            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
             'bg-white dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
             'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -1574,7 +1574,7 @@ export default function DebugTab() {
           onClick={checkErrors}
           disabled={loading.errors}
           className={classNames(
-            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
             'bg-white dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
             'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -1595,7 +1595,7 @@ export default function DebugTab() {
           onClick={getWebAppInfo}
           disabled={loading.webAppInfo}
           className={classNames(
-            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+            'flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-[var(--bolt-border-radius)] transition-colors',
             'bg-white dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
             'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -1886,7 +1886,7 @@ export default function DebugTab() {
                 <p>Failed to load WebApp information</p>
                 <button
                   onClick={() => getWebAppInfo()}
-                  className="mt-4 px-4 py-2 text-sm bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors"
+                  className="mt-4 px-4 py-2 text-sm bg-sky-500 text-white rounded-[var(--bolt-border-radius)] hover:bg-sky-600 transition-colors"
                 >
                   Retry
                 </button>
@@ -2018,7 +2018,7 @@ export default function DebugTab() {
             {webAppInfo && (
               <div className="mt-6">
                 <h3 className="mb-4 text-base font-medium text-bolt-elements-textPrimary">Dependencies</h3>
-                <div className="bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded-lg divide-y divide-[#E5E5E5] dark:divide-[#1A1A1A]">
+                <div className="bg-white dark:bg-[#0A0A0A] border border-[#E5E5E5] dark:border-[#1A1A1A] rounded-[var(--bolt-border-radius)] divide-y divide-[#E5E5E5] dark:divide-[#1A1A1A]">
                   <DependencySection title="Production" deps={webAppInfo.dependencies.production} />
                   <DependencySection title="Development" deps={webAppInfo.dependencies.development} />
                   <DependencySection title="Peer" deps={webAppInfo.dependencies.peer} />

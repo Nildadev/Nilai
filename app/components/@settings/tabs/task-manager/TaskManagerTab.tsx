@@ -1034,7 +1034,7 @@ const TaskManagerTab: React.FC = () => {
           System monitoring is not available in serverless environments like Cloudflare Pages, Netlify, or Vercel. These
           platforms don't provide access to the underlying system resources.
         </p>
-        <div className="flex flex-col gap-2 bg-bolt-background-secondary dark:bg-bolt-backgroundDark-secondary p-4 rounded-lg text-sm text-left max-w-md">
+        <div className="flex flex-col gap-2 bg-bolt-background-secondary dark:bg-bolt-backgroundDark-secondary p-4 rounded-[var(--bolt-border-radius)] text-sm text-left max-w-md">
           <p className="text-bolt-elements-textSecondary">
             <span className="font-medium">Why is this disabled?</span>
             <br />
@@ -1054,7 +1054,7 @@ const TaskManagerTab: React.FC = () => {
 
         {/* Testing controls - only shown in development */}
         {isDevelopment && (
-          <div className="mt-6 p-4 border border-dashed border-bolt-elements-border rounded-lg">
+          <div className="mt-6 p-4 border border-dashed border-bolt-elements-border rounded-[var(--bolt-border-radius)]">
             <h4 className="text-sm font-medium text-bolt-elements-textPrimary mb-2">Testing Controls</h4>
             <p className="text-xs text-bolt-elements-textSecondary mb-3">
               These controls are only visible in development mode
@@ -1062,19 +1062,19 @@ const TaskManagerTab: React.FC = () => {
             <div className="flex gap-2">
               <a
                 href="?"
-                className="px-3 py-1.5 bg-bolt-background-tertiary text-xs rounded-md text-bolt-elements-textPrimary"
+                className="px-3 py-1.5 bg-bolt-background-tertiary text-xs rounded-[var(--bolt-border-radius-sm)] text-bolt-elements-textPrimary"
               >
                 Normal Mode
               </a>
               <a
                 href="?simulate-serverless=true"
-                className="px-3 py-1.5 bg-bolt-action-primary text-xs rounded-md text-white"
+                className="px-3 py-1.5 bg-bolt-action-primary text-xs rounded-[var(--bolt-border-radius-sm)] text-white"
               >
                 Simulate Serverless
               </a>
               <a
                 href="?simulate-api-failure=true"
-                className="px-3 py-1.5 bg-bolt-action-destructive text-xs rounded-md text-white"
+                className="px-3 py-1.5 bg-bolt-action-destructive text-xs rounded-[var(--bolt-border-radius-sm)] text-white"
               >
                 Simulate API Failures
               </a>
@@ -1089,7 +1089,7 @@ const TaskManagerTab: React.FC = () => {
     <div className="flex flex-col gap-6">
       {/* Summary Header */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#F8F8F8] dark:bg-[#141414]">
+        <div className="flex flex-col items-center justify-center p-3 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414]">
           <div className="text-sm text-bolt-elements-textSecondary">CPU</div>
           <div
             className={classNames(
@@ -1100,13 +1100,13 @@ const TaskManagerTab: React.FC = () => {
             {(metricsHistory.cpu[metricsHistory.cpu.length - 1] || 0).toFixed(1)}%
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#F8F8F8] dark:bg-[#141414]">
+        <div className="flex flex-col items-center justify-center p-3 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414]">
           <div className="text-sm text-bolt-elements-textSecondary">Memory</div>
           <div className={classNames('text-xl font-semibold', getUsageColor(metrics.systemMemory?.percentage || 0))}>
             {Math.round(metrics.systemMemory?.percentage || 0)}%
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#F8F8F8] dark:bg-[#141414]">
+        <div className="flex flex-col items-center justify-center p-3 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414]">
           <div className="text-sm text-bolt-elements-textSecondary">Disk</div>
           <div
             className={classNames(
@@ -1124,7 +1124,7 @@ const TaskManagerTab: React.FC = () => {
             %
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#F8F8F8] dark:bg-[#141414]">
+        <div className="flex flex-col items-center justify-center p-3 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414]">
           <div className="text-sm text-bolt-elements-textSecondary">Network</div>
           <div className="text-xl font-semibold text-gray-500">{metrics.network.downlink.toFixed(1)} Mbps</div>
         </div>
@@ -1135,7 +1135,7 @@ const TaskManagerTab: React.FC = () => {
         <h3 className="text-base font-medium text-bolt-elements-textPrimary">Memory Usage</h3>
         <div className="grid grid-cols-1 gap-4">
           {/* System Physical Memory */}
-          <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+          <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <span className="text-sm text-bolt-elements-textSecondary">System Memory</span>
@@ -1161,7 +1161,7 @@ const TaskManagerTab: React.FC = () => {
 
           {/* Swap Memory */}
           {metrics.systemMemory?.swap && (
-            <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+            <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <span className="text-sm text-bolt-elements-textSecondary">Swap Memory</span>
@@ -1199,7 +1199,7 @@ const TaskManagerTab: React.FC = () => {
       <div className="flex flex-col gap-4">
         <h3 className="text-base font-medium text-bolt-elements-textPrimary">Disk Usage</h3>
         {metrics.disks && metrics.disks.length > 0 ? (
-          <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+          <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-bolt-elements-textSecondary">System Disk</span>
               <span
@@ -1231,7 +1231,7 @@ const TaskManagerTab: React.FC = () => {
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-6 rounded-lg bg-[#F8F8F8] dark:bg-[#141414]">
+          <div className="flex flex-col items-center justify-center py-6 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414]">
             <div className="i-ph:hard-drive-fill w-12 h-12 text-bolt-elements-textTertiary mb-2" />
             <p className="text-bolt-elements-textSecondary text-sm">Disk information is not available</p>
             <p className="text-bolt-elements-textTertiary text-xs mt-1">
@@ -1253,7 +1253,7 @@ const TaskManagerTab: React.FC = () => {
             Refresh
           </button>
         </div>
-        <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+        <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
           {metrics.processes && metrics.processes.length > 0 ? (
             <>
               {/* CPU Usage Summary */}
@@ -1403,7 +1403,7 @@ const TaskManagerTab: React.FC = () => {
               </p>
               <button
                 onClick={updateMetrics}
-                className="mt-4 px-3 py-1 bg-bolt-action-primary text-white rounded-md text-xs"
+                className="mt-4 px-3 py-1 bg-bolt-action-primary text-white rounded-[var(--bolt-border-radius-sm)] text-xs"
               >
                 Try Again
               </button>
@@ -1415,7 +1415,7 @@ const TaskManagerTab: React.FC = () => {
       {/* CPU Usage Graph */}
       <div className="flex flex-col gap-4">
         <h3 className="text-base font-medium text-bolt-elements-textPrimary">CPU Usage History</h3>
-        <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+        <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
           <div className="flex items-center justify-between">
             <span className="text-sm text-bolt-elements-textSecondary">System CPU</span>
             <span
@@ -1441,7 +1441,7 @@ const TaskManagerTab: React.FC = () => {
       <div className="flex flex-col gap-4">
         <h3 className="text-base font-medium text-bolt-elements-textPrimary">Network</h3>
         <div className="grid grid-cols-1 gap-4">
-          <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+          <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
             <div className="flex items-center justify-between">
               <span className="text-sm text-bolt-elements-textSecondary">Connection</span>
               <span className="text-sm font-medium text-bolt-elements-textPrimary">
@@ -1476,7 +1476,7 @@ const TaskManagerTab: React.FC = () => {
         <div className="flex flex-col gap-4">
           <h3 className="text-base font-medium text-bolt-elements-textPrimary">Battery</h3>
           <div className="grid grid-cols-1 gap-4">
-            <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+            <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-bolt-elements-textSecondary">Status</span>
                 <div className="flex items-center gap-2">
@@ -1507,7 +1507,7 @@ const TaskManagerTab: React.FC = () => {
       <div className="flex flex-col gap-4">
         <h3 className="text-base font-medium text-bolt-elements-textPrimary">Performance</h3>
         <div className="grid grid-cols-1 gap-4">
-          <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+          <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
             <div className="text-xs text-bolt-elements-textSecondary">
               Page Load: {(metrics.performance.pageLoad / 1000).toFixed(2)}s
             </div>
@@ -1526,7 +1526,7 @@ const TaskManagerTab: React.FC = () => {
 
       {/* Alerts */}
       {alerts.length > 0 && (
-        <div className="flex flex-col gap-2 rounded-lg bg-[#F8F8F8] dark:bg-[#141414] p-4">
+        <div className="flex flex-col gap-2 rounded-[var(--bolt-border-radius)] bg-[#F8F8F8] dark:bg-[#141414] p-4">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-bolt-elements-textPrimary">Recent Alerts</span>
             <button

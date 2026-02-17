@@ -18,7 +18,7 @@ interface DropdownItemProps {
 export const DropdownItem = ({ children, onSelect, className }: DropdownItemProps) => (
   <DropdownMenu.Item
     className={classNames(
-      'relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm',
+      'relative flex items-center gap-2 px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
       'text-bolt-elements-textPrimary hover:text-bolt-elements-textPrimary',
       'hover:bg-bolt-elements-background-depth-3',
       'transition-colors cursor-pointer',
@@ -41,7 +41,7 @@ export const Dropdown = ({ trigger, children, align = 'end', sideOffset = 5 }: D
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           className={classNames(
-            'min-w-[220px] rounded-lg p-2',
+            'min-w-[220px] rounded-[var(--bolt-border-radius)] p-2',
             'bg-bolt-elements-background-depth-2',
             'border border-bolt-elements-borderColor',
             'shadow-lg',

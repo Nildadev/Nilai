@@ -9,7 +9,7 @@ const ThoughtBox = ({ title, children }: PropsWithChildren<{ title: string }>) =
       className={`
         bg-bolt-elements-background-depth-2
         shadow-md 
-        rounded-lg 
+        rounded-[var(--bolt-border-radius)] 
         cursor-pointer 
         transition-all 
         duration-300
@@ -18,7 +18,7 @@ const ThoughtBox = ({ title, children }: PropsWithChildren<{ title: string }>) =
         border border-bolt-elements-borderColor
       `}
     >
-      <div className="p-4 flex items-center gap-4 rounded-lg  text-bolt-elements-textSecondary font-medium leading-5 text-sm  border border-bolt-elements-borderColor">
+      <div className="p-4 flex items-center gap-4 rounded-[var(--bolt-border-radius)]  text-bolt-elements-textSecondary font-medium leading-5 text-sm  border border-bolt-elements-borderColor">
         <div className="i-ph:brain-thin text-2xl" />
         <div className="div">
           <span> {title}</span>{' '}
@@ -30,7 +30,7 @@ const ThoughtBox = ({ title, children }: PropsWithChildren<{ title: string }>) =
         transition-opacity 
         duration-300
         p-4 
-        rounded-lg 
+        rounded-[var(--bolt-border-radius)] 
         ${isExpanded ? 'opacity-100' : 'opacity-0'}
       `}
       >

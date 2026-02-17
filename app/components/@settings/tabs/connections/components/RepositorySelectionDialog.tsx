@@ -563,7 +563,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
               <Dialog.Close
                 onClick={handleClose}
                 className={classNames(
-                  'p-2 rounded-lg transition-all duration-200 ease-in-out bg-transparent',
+                  'p-2 rounded-[var(--bolt-border-radius)] transition-all duration-200 ease-in-out bg-transparent',
                   'text-bolt-elements-textTertiary hover:text-bolt-elements-textPrimary',
                   'dark:text-bolt-elements-textTertiary-dark dark:hover:text-bolt-elements-textPrimary-dark',
                   'hover:bg-bolt-elements-background-depth-2 dark:hover:bg-bolt-elements-background-depth-3',
@@ -585,7 +585,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
               </div>
               <motion.button
                 onClick={() => setShowAuthDialog(true)}
-                className="px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-600 text-white text-sm transition-colors flex items-center gap-1.5 shadow-sm"
+                className="px-3 py-1.5 rounded-[var(--bolt-border-radius)] bg-sky-500 hover:bg-sky-600 text-white text-sm transition-colors flex items-center gap-1.5 shadow-sm"
                 whileHover={{ scale: 1.02, boxShadow: '0 4px 8px rgba(124, 58, 237, 0.2)' }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -598,7 +598,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
             <div className="p-5">
               {/* Tabs */}
               <div className="mb-6">
-                <div className="bg-[#f0f0f0] dark:bg-[#1e1e1e] rounded-lg overflow-hidden border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark">
+                <div className="bg-[#f0f0f0] dark:bg-[#1e1e1e] rounded-[var(--bolt-border-radius)] overflow-hidden border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark">
                   <div className="flex">
                     <button
                       onClick={() => setActiveTab('my-repos')}
@@ -658,7 +658,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                       />
                     </div>
 
-                    <div className="mt-3 text-xs text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-lg border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
+                    <div className="mt-3 text-xs text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
                       <p className="flex items-start gap-2">
                         <span className="i-ph:info w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-sky-500" />
                         <span>
@@ -732,7 +732,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                           </div>
                           <motion.button
                             onClick={() => setFilters({})}
-                            className="px-3 py-2 rounded-lg bg-white dark:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark shadow-sm"
+                            className="px-3 py-2 rounded-[var(--bolt-border-radius)] bg-white dark:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark shadow-sm"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             title="Clear filters"
@@ -821,7 +821,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                                     handleSearch(searchQuery);
                                   }
                                 }}
-                                className="w-full pl-8 px-3 py-2 text-sm rounded-lg bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
+                                className="w-full pl-8 px-3 py-2 text-sm rounded-[var(--bolt-border-radius)] bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
                               />
                             </div>
                             <div className="relative">
@@ -833,7 +833,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                                 placeholder="Min stars"
                                 value={filters.stars || ''}
                                 onChange={(e) => handleFilterChange('stars', e.target.value)}
-                                className="w-full pl-8 px-3 py-2 text-sm rounded-lg bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
+                                className="w-full pl-8 px-3 py-2 text-sm rounded-[var(--bolt-border-radius)] bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
                               />
                             </div>
                             <div className="relative">
@@ -845,13 +845,13 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                                 placeholder="Min forks"
                                 value={filters.forks || ''}
                                 onChange={(e) => handleFilterChange('forks', e.target.value)}
-                                className="w-full pl-8 px-3 py-2 text-sm rounded-lg bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
+                                className="w-full pl-8 px-3 py-2 text-sm rounded-[var(--bolt-border-radius)] bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark focus:outline-none focus:ring-2 focus:ring-sky-500"
                               />
                             </div>
                           </div>
                         </div>
 
-                        <div className="mt-3 text-xs text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-lg border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
+                        <div className="mt-3 text-xs text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
                           <p className="flex items-start gap-2">
                             <span className="i-ph:info w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-sky-500" />
                             <span>
@@ -871,7 +871,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                           <div className="flex items-center gap-3">
                             <motion.button
                               onClick={() => setSelectedRepository(null)}
-                              className="p-2 rounded-lg hover:bg-white dark:hover:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary shadow-sm"
+                              className="p-2 rounded-[var(--bolt-border-radius)] hover:bg-white dark:hover:bg-bolt-elements-background-depth-4 text-bolt-elements-textSecondary hover:text-bolt-elements-textPrimary shadow-sm"
                               whileHover={{ scale: 1.1 }}
                               whileTap={{ scale: 0.9 }}
                             >
@@ -896,7 +896,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                         </div>
 
                         {selectedRepository.description && (
-                          <div className="bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-lg border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
+                          <div className="bg-white/50 dark:bg-bolt-elements-background-depth-4/50 p-3 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor/30 dark:border-bolt-elements-borderColor-dark/30 backdrop-blur-sm">
                             <p className="text-sm text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark">
                               {selectedRepository.description}
                             </p>
@@ -929,7 +929,7 @@ export function RepositorySelectionDialog({ isOpen, onClose, onSelect }: Reposit
                           <select
                             value={selectedBranch}
                             onChange={(e) => setSelectedBranch(e.target.value)}
-                            className="w-full px-3 py-3 rounded-lg bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary-dark focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm"
+                            className="w-full px-3 py-3 rounded-[var(--bolt-border-radius)] bg-white dark:bg-bolt-elements-background-depth-4 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor-dark text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary-dark focus:outline-none focus:ring-2 focus:ring-sky-500 shadow-sm"
                           >
                             {branches.map((branch) => (
                               <option

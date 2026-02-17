@@ -148,7 +148,7 @@ export const TabManagement = () => {
           <div className="flex items-center gap-2">
             <div
               className={classNames(
-                'w-8 h-8 flex items-center justify-center rounded-lg',
+                'w-8 h-8 flex items-center justify-center rounded-[var(--bolt-border-radius)]',
                 'bg-bolt-elements-background-depth-3',
                 'text-sky-500',
               )}
@@ -172,7 +172,7 @@ export const TabManagement = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search tabs..."
               className={classNames(
-                'w-full pl-10 pr-4 py-2 rounded-lg',
+                'w-full pl-10 pr-4 py-2 rounded-[var(--bolt-border-radius)]',
                 'bg-bolt-elements-background-depth-2',
                 'border border-bolt-elements-borderColor',
                 'text-bolt-elements-textPrimary',
@@ -201,7 +201,7 @@ export const TabManagement = () => {
               <motion.div
                 key={tab.id}
                 className={classNames(
-                  'rounded-lg border bg-bolt-elements-background text-bolt-elements-textPrimary',
+                  'rounded-[var(--bolt-border-radius)] border bg-bolt-elements-background text-bolt-elements-textPrimary',
                   'bg-bolt-elements-background-depth-2',
                   'hover:bg-bolt-elements-background-depth-3',
                   'transition-all duration-200',
@@ -270,7 +270,7 @@ export const TabManagement = () => {
                 </div>
 
                 <motion.div
-                  className="absolute inset-0 border-2 border-sky-500/0 rounded-lg pointer-events-none"
+                  className="absolute inset-0 border-2 border-sky-500/0 rounded-[var(--bolt-border-radius)] pointer-events-none"
                   animate={{
                     borderColor: tab.visible ? 'rgba(168, 85, 247, 0.2)' : 'rgba(168, 85, 247, 0)',
                     scale: tab.visible ? 1 : 0.98,
@@ -295,7 +295,7 @@ export const TabManagement = () => {
               <motion.div
                 key={tab.id}
                 className={classNames(
-                  'rounded-lg border bg-bolt-elements-background text-bolt-elements-textPrimary',
+                  'rounded-[var(--bolt-border-radius)] border bg-bolt-elements-background text-bolt-elements-textPrimary',
                   'bg-bolt-elements-background-depth-2',
                   'hover:bg-bolt-elements-background-depth-3',
                   'transition-all duration-200',
@@ -364,7 +364,7 @@ export const TabManagement = () => {
                 </div>
 
                 <motion.div
-                  className="absolute inset-0 border-2 border-sky-500/0 rounded-lg pointer-events-none"
+                  className="absolute inset-0 border-2 border-sky-500/0 rounded-[var(--bolt-border-radius)] pointer-events-none"
                   animate={{
                     borderColor: tab.visible ? 'rgba(168, 85, 247, 0.2)' : 'rgba(168, 85, 247, 0)',
                     scale: tab.visible ? 1 : 0.98,

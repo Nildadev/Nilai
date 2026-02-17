@@ -54,7 +54,7 @@ const FullscreenOverlay = memo(({ isFullscreen, children }: { isFullscreen: bool
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-6">
-      <div className="w-full h-full max-w-[90vw] max-h-[90vh] bg-bolt-elements-background-depth-2 rounded-lg border border-bolt-elements-borderColor shadow-xl overflow-hidden">
+      <div className="w-full h-full max-w-[90vw] max-h-[90vh] bg-bolt-elements-background-depth-2 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor shadow-xl overflow-hidden">
         {children}
       </div>
     </div>
@@ -363,7 +363,7 @@ const NoChangesView = memo(
         <p className="font-medium text-bolt-elements-textPrimary">Files are identical</p>
         <p className="text-sm mt-1">Both versions match exactly</p>
       </div>
-      <div className="mt-4 w-full max-w-2xl bg-bolt-elements-background-depth-1 rounded-lg border border-bolt-elements-borderColor overflow-hidden">
+      <div className="mt-4 w-full max-w-2xl bg-bolt-elements-background-depth-1 rounded-[var(--bolt-border-radius)] border border-bolt-elements-borderColor overflow-hidden">
         <div className="p-2 text-xs font-bold text-bolt-elements-textTertiary border-b border-bolt-elements-borderColor">
           Current Content
         </div>

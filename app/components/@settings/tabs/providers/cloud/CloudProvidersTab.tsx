@@ -142,7 +142,7 @@ const CloudProvidersTab = () => {
           <div className="flex items-center gap-2">
             <div
               className={classNames(
-                'w-8 h-8 flex items-center justify-center rounded-lg',
+                'w-8 h-8 flex items-center justify-center rounded-[var(--bolt-border-radius)]',
                 'bg-bolt-elements-background-depth-3',
                 'text-sky-500',
               )}
@@ -166,7 +166,7 @@ const CloudProvidersTab = () => {
             <motion.div
               key={provider.name}
               className={classNames(
-                'rounded-lg border bg-bolt-elements-background text-bolt-elements-textPrimary shadow-sm',
+                'rounded-[var(--bolt-border-radius)] border bg-bolt-elements-background text-bolt-elements-textPrimary shadow-sm',
                 'bg-bolt-elements-background-depth-2',
                 'hover:bg-bolt-elements-background-depth-3',
                 'transition-all duration-200',
@@ -242,7 +242,7 @@ const CloudProvidersTab = () => {
                             defaultValue={provider.settings.baseUrl}
                             placeholder={`Enter ${provider.name} base URL`}
                             className={classNames(
-                              'flex-1 px-3 py-1.5 rounded-lg text-sm',
+                              'flex-1 px-3 py-1.5 rounded-[var(--bolt-border-radius)] text-sm',
                               'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                               'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
                               'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
@@ -260,7 +260,7 @@ const CloudProvidersTab = () => {
                           />
                         ) : (
                           <div
-                            className="flex-1 px-3 py-1.5 rounded-lg text-sm cursor-pointer group/url"
+                            className="flex-1 px-3 py-1.5 rounded-[var(--bolt-border-radius)] text-sm cursor-pointer group/url"
                             onClick={() => setEditingProvider(provider.name)}
                           >
                             <div className="flex items-center gap-2 text-bolt-elements-textSecondary">
@@ -287,7 +287,7 @@ const CloudProvidersTab = () => {
               </div>
 
               <motion.div
-                className="absolute inset-0 border-2 border-sky-500/0 rounded-lg pointer-events-none"
+                className="absolute inset-0 border-2 border-sky-500/0 rounded-[var(--bolt-border-radius)] pointer-events-none"
                 animate={{
                   borderColor: provider.settings.enabled ? 'rgba(168, 85, 247, 0.2)' : 'rgba(168, 85, 247, 0)',
                   scale: provider.settings.enabled ? 1 : 0.98,

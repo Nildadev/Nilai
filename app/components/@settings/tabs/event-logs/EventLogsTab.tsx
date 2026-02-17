@@ -214,7 +214,7 @@ const LogEntryItem = ({ log, isExpanded: forceExpanded, use24Hour, showTimestamp
       animate={{ opacity: 1, y: 0 }}
       className={classNames(
         'flex flex-col gap-2',
-        'rounded-lg p-4',
+        'rounded-[var(--bolt-border-radius)] p-4',
         'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
         'border border-[#E5E5E5] dark:border-[#1A1A1A]',
         style.bg,
@@ -804,7 +804,7 @@ export function EventLogsTab() {
           onClick={() => setIsOpen(true)}
           className={classNames(
             'group flex items-center gap-2',
-            'rounded-lg px-3 py-1.5',
+            'rounded-[var(--bolt-border-radius)] px-3 py-1.5',
             'text-sm text-gray-900 dark:text-white',
             'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
@@ -829,7 +829,7 @@ export function EventLogsTab() {
                   key={format.id}
                   onClick={() => handleFormatClick(format.handler)}
                   className={classNames(
-                    'flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-colors w-full text-left',
+                    'flex items-center gap-3 px-4 py-3 text-sm rounded-[var(--bolt-border-radius)] transition-colors w-full text-left',
                     'bg-white dark:bg-[#0A0A0A]',
                     'border border-[#E5E5E5] dark:border-[#1A1A1A]',
                     'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
@@ -864,7 +864,7 @@ export function EventLogsTab() {
             <button
               className={classNames(
                 'flex items-center gap-2',
-                'rounded-lg px-3 py-1.5',
+                'rounded-[var(--bolt-border-radius)] px-3 py-1.5',
                 'text-sm text-gray-900 dark:text-white',
                 'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
                 'border border-[#E5E5E5] dark:border-[#1A1A1A]',
@@ -883,7 +883,7 @@ export function EventLogsTab() {
 
           <DropdownMenu.Portal>
             <DropdownMenu.Content
-              className="min-w-[200px] bg-white dark:bg-[#0A0A0A] rounded-lg shadow-lg py-1 z-[250] animate-in fade-in-0 zoom-in-95 border border-[#E5E5E5] dark:border-[#1A1A1A]"
+              className="min-w-[200px] bg-white dark:bg-[#0A0A0A] rounded-[var(--bolt-border-radius)] shadow-lg py-1 z-[250] animate-in fade-in-0 zoom-in-95 border border-[#E5E5E5] dark:border-[#1A1A1A]"
               sideOffset={5}
               align="start"
               side="bottom"
@@ -941,7 +941,7 @@ export function EventLogsTab() {
             onClick={handleRefresh}
             className={classNames(
               'group flex items-center gap-2',
-              'rounded-lg px-3 py-1.5',
+              'rounded-[var(--bolt-border-radius)] px-3 py-1.5',
               'text-sm text-gray-900 dark:text-white',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
@@ -966,7 +966,7 @@ export function EventLogsTab() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={classNames(
-              'w-full px-4 py-2 pl-10 rounded-lg',
+              'w-full px-4 py-2 pl-10 rounded-[var(--bolt-border-radius)]',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
               'text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400',
@@ -985,7 +985,7 @@ export function EventLogsTab() {
             animate={{ opacity: 1, y: 0 }}
             className={classNames(
               'flex flex-col items-center justify-center gap-4',
-              'rounded-lg p-8 text-center',
+              'rounded-[var(--bolt-border-radius)] p-8 text-center',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
             )}

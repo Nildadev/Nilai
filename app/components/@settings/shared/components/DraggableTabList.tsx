@@ -78,7 +78,7 @@ const DraggableTabItem = ({
         boxShadow: isDragging ? '0 8px 16px rgba(0,0,0,0.1)' : 'none',
       }}
       className={classNames(
-        'flex items-center justify-between p-4 rounded-lg',
+        'flex items-center justify-between p-4 rounded-[var(--bolt-border-radius)]',
         'bg-[#F5F5F5] dark:bg-[#1A1A1A]',
         'border border-[#E5E5E5] dark:border-[#333333]',
         isDragging ? 'z-50' : '',

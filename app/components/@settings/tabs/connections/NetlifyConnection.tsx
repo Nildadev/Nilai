@@ -299,7 +299,7 @@ export default function NetlifyConnection() {
       <div className="mt-6">
         <Collapsible open={isStatsOpen} onOpenChange={setIsStatsOpen}>
           <CollapsibleTrigger asChild>
-            <div className="flex items-center justify-between p-4 rounded-lg bg-bolt-elements-background dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive/70 dark:hover:border-bolt-elements-borderColorActive/70 transition-all duration-200">
+            <div className="flex items-center justify-between p-4 rounded-[var(--bolt-border-radius)] bg-bolt-elements-background dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive/70 dark:hover:border-bolt-elements-borderColorActive/70 transition-all duration-200">
               <div className="flex items-center gap-2">
                 <div className="i-ph:chart-bar w-4 h-4 text-bolt-elements-item-contentAccent dark:text-bolt-elements-item-contentAccent" />
                 <span className="text-sm font-medium text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
@@ -343,7 +343,7 @@ export default function NetlifyConnection() {
               </div>
               {sites.length > 0 && (
                 <div className="mt-4 space-y-4">
-                  <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg p-4">
+                  <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] p-4">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="text-sm font-medium flex items-center gap-2 text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
                         <BuildingLibraryIcon className="h-4 w-4 text-bolt-elements-item-contentAccent dark:text-bolt-elements-item-contentAccent" />
@@ -370,7 +370,7 @@ export default function NetlifyConnection() {
                         <div
                           key={site.id}
                           className={classNames(
-                            'bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border rounded-lg p-4 transition-all',
+                            'bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border rounded-[var(--bolt-border-radius)] p-4 transition-all',
                             activeSiteIndex === index
                               ? 'border-bolt-elements-item-contentAccent bg-bolt-elements-item-backgroundActive/10'
                               : 'border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive/70',
@@ -474,7 +474,7 @@ export default function NetlifyConnection() {
                     </div>
                   </div>
                   {activeSiteIndex !== -1 && deploys.length > 0 && (
-                    <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg p-4">
+                    <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h4 className="text-sm font-medium flex items-center gap-2 text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
                           <BuildingLibraryIcon className="h-4 w-4 text-bolt-elements-item-contentAccent dark:text-bolt-elements-item-contentAccent" />
@@ -485,7 +485,7 @@ export default function NetlifyConnection() {
                         {deploys.map((deploy) => (
                           <div
                             key={deploy.id}
-                            className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg p-3"
+                            className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] p-3"
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
@@ -578,7 +578,7 @@ export default function NetlifyConnection() {
                     </div>
                   )}
                   {activeSiteIndex !== -1 && builds.length > 0 && (
-                    <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg p-4">
+                    <div className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] p-4">
                       <div className="flex items-center justify-between mb-3">
                         <h4 className="text-sm font-medium flex items-center gap-2 text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
                           <CodeBracketIcon className="h-4 w-4 text-bolt-elements-item-contentAccent dark:text-bolt-elements-item-contentAccent" />
@@ -589,7 +589,7 @@ export default function NetlifyConnection() {
                         {builds.map((build) => (
                           <div
                             key={build.id}
-                            className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg p-3"
+                            className="bg-bolt-elements-background dark:bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)] p-3"
                           >
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
@@ -636,7 +636,7 @@ export default function NetlifyConnection() {
   };
 
   return (
-    <div className="space-y-6 bg-bolt-elements-background dark:bg-bolt-elements-background border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-lg">
+    <div className="space-y-6 bg-bolt-elements-background dark:bg-bolt-elements-background border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor rounded-[var(--bolt-border-radius)]">
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -658,7 +658,7 @@ export default function NetlifyConnection() {
               onChange={(e) => setTokenInput(e.target.value)}
               placeholder="Enter your Netlify API token"
               className={classNames(
-                'w-full px-3 py-2 rounded-lg text-sm',
+                'w-full px-3 py-2 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-[#F8F8F8] dark:bg-[#1A1A1A]',
                 'border border-[#E5E5E5] dark:border-[#333333]',
                 'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
@@ -682,7 +682,7 @@ export default function NetlifyConnection() {
                 onClick={handleConnect}
                 disabled={isConnecting || !tokenInput}
                 className={classNames(
-                  'px-4 py-2 rounded-lg text-sm flex items-center gap-2',
+                  'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm flex items-center gap-2',
                   'bg-[#303030] text-white',
                   'hover:bg-[#5E41D0] hover:text-white',
                   'disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200',
@@ -709,7 +709,7 @@ export default function NetlifyConnection() {
               <button
                 onClick={handleDisconnect}
                 className={classNames(
-                  'px-4 py-2 rounded-lg text-sm flex items-center gap-2',
+                  'px-4 py-2 rounded-[var(--bolt-border-radius)] text-sm flex items-center gap-2',
                   'bg-red-500 text-white',
                   'hover:bg-red-600',
                 )}

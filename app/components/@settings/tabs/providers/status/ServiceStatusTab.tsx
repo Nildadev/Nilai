@@ -698,7 +698,7 @@ const ServiceStatusTab = () => {
           <div className="flex items-center gap-2">
             <div
               className={classNames(
-                'w-8 h-8 flex items-center justify-center rounded-lg',
+                'w-8 h-8 flex items-center justify-center rounded-[var(--bolt-border-radius)]',
                 'bg-bolt-elements-background-depth-3',
                 'text-sky-500',
               )}
@@ -719,7 +719,7 @@ const ServiceStatusTab = () => {
             <button
               onClick={() => fetchAllStatuses()}
               className={classNames(
-                'px-3 py-1.5 rounded-lg text-sm',
+                'px-3 py-1.5 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-bolt-elements-background-depth-3 hover:bg-bolt-elements-background-depth-4',
                 'text-bolt-elements-textPrimary',
                 'transition-all duration-200',
@@ -735,14 +735,14 @@ const ServiceStatusTab = () => {
         </div>
 
         {/* API Key Test Section */}
-        <div className="p-4 bg-bolt-elements-background-depth-2 rounded-lg">
+        <div className="p-4 bg-bolt-elements-background-depth-2 rounded-[var(--bolt-border-radius)]">
           <h5 className="text-sm font-medium text-bolt-elements-textPrimary mb-2">Test API Key</h5>
           <div className="flex gap-2">
             <select
               value={testProvider}
               onChange={(e) => setTestProvider(e.target.value as ProviderName)}
               className={classNames(
-                'flex-1 px-3 py-1.5 rounded-lg text-sm max-w-[200px]',
+                'flex-1 px-3 py-1.5 rounded-[var(--bolt-border-radius)] text-sm max-w-[200px]',
                 'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                 'text-bolt-elements-textPrimary',
                 'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
@@ -761,7 +761,7 @@ const ServiceStatusTab = () => {
               onChange={(e) => setTestApiKey(e.target.value)}
               placeholder="Enter API key to test"
               className={classNames(
-                'flex-1 px-3 py-1.5 rounded-lg text-sm',
+                'flex-1 px-3 py-1.5 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
                 'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
                 'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
@@ -773,7 +773,7 @@ const ServiceStatusTab = () => {
               }
               disabled={!testProvider || !testApiKey || testingStatus === 'testing'}
               className={classNames(
-                'px-4 py-1.5 rounded-lg text-sm',
+                'px-4 py-1.5 rounded-[var(--bolt-border-radius)] text-sm',
                 'bg-sky-500 hover:bg-sky-600',
                 'text-white',
                 'transition-all duration-200',
@@ -808,7 +808,7 @@ const ServiceStatusTab = () => {
                   'bg-bolt-elements-background-depth-2',
                   'hover:bg-bolt-elements-background-depth-3',
                   'transition-all duration-200',
-                  'relative overflow-hidden rounded-lg',
+                  'relative overflow-hidden rounded-[var(--bolt-border-radius)]',
                 )}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -824,7 +824,7 @@ const ServiceStatusTab = () => {
                       {service.icon && (
                         <div
                           className={classNames(
-                            'w-8 h-8 flex items-center justify-center rounded-lg',
+                            'w-8 h-8 flex items-center justify-center rounded-[var(--bolt-border-radius)]',
                             'bg-bolt-elements-background-depth-3',
                             getStatusColor(service.status),
                           )}

@@ -109,7 +109,7 @@ export const TabTile: React.FC<TabTileProps> = ({
                 <Tooltip.Portal>
                   <Tooltip.Content
                     className={classNames(
-                      'px-3 py-1.5 rounded-lg',
+                      'px-3 py-1.5 rounded-[var(--bolt-border-radius)]',
                       'bg-[#18181B] text-white',
                       'text-sm font-medium',
                       'select-none',

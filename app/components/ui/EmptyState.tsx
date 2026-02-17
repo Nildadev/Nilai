@@ -88,7 +88,7 @@ export function EmptyState({
       className={classNames(
         'flex flex-col items-center justify-center',
         'text-bolt-elements-textSecondary dark:text-bolt-elements-textSecondary-dark',
-        'bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 rounded-lg',
+        'bg-bolt-elements-background-depth-2 dark:bg-bolt-elements-background-depth-3 rounded-[var(--bolt-border-radius)]',
         styles.container,
         className,
       )}

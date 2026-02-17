@@ -228,6 +228,12 @@
   --workbench-inner-width: var(--workbench-width);
   --workbench-left: calc(100% - var(--workbench-width));
 
+  /* Global UI Consistency */
+  --bolt-border-radius: 12px;
+  --bolt-border-radius-sm: 8px;
+  --bolt-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --bolt-shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
   /* Toasts */
   --toastify-color-progress-success: var(--bolt-elements-icon-success);
   --toastify-color-progress-error: var(--bolt-elements-icon-error);
