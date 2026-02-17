@@ -59,7 +59,11 @@ export const Markdown = memo(({ children, html = false, limitedMarkdown = false 
           const [, language = 'plaintext'] = /language-(\w+)/.exec(String(className) || '') ?? [];
 
           if (language === 'mermaid') {
-            return <Mermaid chart={firstChild.children[0].value} />;
+            return (
+              <div className="mermaid-wrapper my-4">
+                <Mermaid chart={firstChild.children[0].value} />
+              </div>
+            );
           }
 
           return <CodeBlock code={firstChild.children[0].value} language={language as BundledLanguage} {...rest} />;
