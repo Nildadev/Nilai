@@ -413,7 +413,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
   return (
     <RadixDialog.Root open={open}>
       <RadixDialog.Portal>
-        <div className="fixed inset-0 flex items-start justify-center z-[1000] overflow-hidden p-4 sm:p-8 pt-16 sm:pt-20">
+        <div className="fixed inset-0 flex items-start justify-center z-[9999] overflow-hidden p-4 sm:p-8 pt-16 sm:pt-20">
           <RadixDialog.Overlay asChild>
             <motion.div
               className="absolute inset-0 bg-black/70 dark:bg-black/80 backdrop-blur-sm"
@@ -428,7 +428,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
             aria-describedby={undefined}
             onEscapeKeyDown={handleClose}
             onPointerDownOutside={handleClose}
-            className="relative z-[1001] w-full max-w-[1200px] h-full max-h-[calc(100vh-5rem)] sm:max-h-[calc(100vh-8rem)]"
+            className="relative z-[10000] w-full max-w-[1200px] h-full max-h-[calc(100vh-5rem)] sm:max-h-[calc(100vh-8rem)]"
           >
             <motion.div
               className={classNames(
