@@ -47,3 +47,41 @@
     transform: translateY(6px);
   }
 }
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bolt-elements-textPrimary) 0%,
+    var(--bolt-elements-textPrimary) 40%,
+    #ffffff 50%,
+    var(--bolt-elements-textPrimary) 60%,
+    var(--bolt-elements-textPrimary) 100%
+  );
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-blue {
+  background: linear-gradient(
+    90deg,
+    #0ea5e9 0%,
+    #0ea5e9 40%,
+    #e0f2fe 50%,
+    #0ea5e9 60%,
+    #0ea5e9 100%
+  );
+  background-size: 200% auto;
+  color: transparent !important;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
