@@ -65,10 +65,10 @@ export default function ProfileTab() {
         {/* Personal Information Section */}
         <div>
           {/* Avatar Upload */}
-          <div className="flex items-start gap-6 mb-8">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-8">
             <div
               className={classNames(
-                'w-24 h-24 rounded-full overflow-hidden',
+                'w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden',
                 'bg-gray-100 dark:bg-gray-800/50',
                 'flex items-center justify-center',
                 'ring-1 ring-gray-200 dark:ring-gray-700',
@@ -89,7 +89,7 @@ export default function ProfileTab() {
                   )}
                 />
               ) : (
-                <div className="i-ph:robot-fill w-16 h-16 text-gray-400 dark:text-gray-500 transition-colors group-hover:text-sky-500/70 transform -translate-y-1" />
+                <div className="i-ph:robot-fill w-12 h-12 sm:w-16 sm:h-16 text-gray-400 dark:text-gray-500 transition-colors group-hover:text-sky-500/70 transform -translate-y-1" />
               )}
 
               <label
@@ -109,14 +109,14 @@ export default function ProfileTab() {
                   disabled={isUploading}
                 />
                 {isUploading ? (
-                  <div className="i-ph:spinner-gap w-6 h-6 text-white animate-spin" />
+                  <div className="i-ph:spinner-gap w-5 h-5 sm:w-6 sm:h-6 text-white animate-spin" />
                 ) : (
-                  <div className="i-ph:camera-plus w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out transform group-hover:scale-110" />
+                  <div className="i-ph:camera-plus w-5 h-5 sm:w-6 sm:h-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out transform group-hover:scale-110" />
                 )}
               </label>
             </div>
 
-            <div className="flex-1 pt-1">
+            <div className="flex-1 pt-1 text-center sm:text-left">
               <label className="block text-base font-medium text-gray-900 dark:text-gray-100 mb-1">
                 Profile Picture
               </label>

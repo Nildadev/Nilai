@@ -34,8 +34,8 @@ export const TabTile: React.FC<TabTileProps> = ({
           <motion.div
             onClick={onClick}
             className={classNames(
-              'relative flex flex-col items-center p-6 rounded-xl',
-              'w-full h-full min-h-[160px]',
+              'relative flex flex-col items-center p-4 sm:p-6 rounded-xl',
+              'w-full h-full min-h-[140px] sm:min-h-[160px]',
               'bg-white dark:bg-[#141414]',
               'border border-[#E5E5E5] dark:border-[#333333]',
               'group',
@@ -52,7 +52,7 @@ export const TabTile: React.FC<TabTileProps> = ({
               <motion.div
                 className={classNames(
                   'relative',
-                  'w-14 h-14',
+                  'w-10 h-10 sm:w-14 h-14',
                   'flex items-center justify-center',
                   'rounded-xl',
                   'bg-gray-100 dark:bg-gray-800',
@@ -65,7 +65,7 @@ export const TabTile: React.FC<TabTileProps> = ({
                 <motion.div
                   className={classNames(
                     TAB_ICONS[tab.id],
-                    'w-8 h-8',
+                    'w-6 h-6 sm:w-8 h-8',
                     'text-gray-600 dark:text-gray-300',
                     'group-hover:text-sky-500 dark:group-hover:text-sky-400/80',
                     isActive ? 'text-sky-500 dark:text-sky-400/90' : '',
@@ -74,10 +74,10 @@ export const TabTile: React.FC<TabTileProps> = ({
               </motion.div>
 
               {/* Label and Description */}
-              <div className="flex flex-col items-center mt-5 w-full">
+              <div className="flex flex-col items-center mt-3 sm:mt-5 w-full">
                 <h3
                   className={classNames(
-                    'text-[15px] font-medium leading-snug mb-2',
+                    'text-sm sm:text-[15px] font-medium leading-snug mb-1 sm:mb-2',
                     'text-gray-700 dark:text-gray-200',
                     'group-hover:text-sky-600 dark:group-hover:text-sky-300/90',
                     isActive ? 'text-sky-500 dark:text-sky-400/90' : '',
@@ -88,10 +88,10 @@ export const TabTile: React.FC<TabTileProps> = ({
                 {description && (
                   <p
                     className={classNames(
-                      'text-[13px] leading-relaxed',
+                      'text-[11px] sm:text-[13px] leading-relaxed',
                       'text-gray-500 dark:text-gray-400',
-                      'max-w-[85%]',
-                      'text-center',
+                      'max-w-[90%] sm:max-w-[85%]',
+                      'text-center line-clamp-2 sm:line-clamp-none',
                       'group-hover:text-sky-500 dark:group-hover:text-sky-400/70',
                       isActive ? 'text-sky-400 dark:text-sky-400/80' : '',
                     )}

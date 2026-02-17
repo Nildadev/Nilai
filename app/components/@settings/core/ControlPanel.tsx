@@ -432,7 +432,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
           >
             <motion.div
               className={classNames(
-                'w-[1200px] h-[90vh]',
+                'w-[95vw] max-w-[1200px] h-[90vh]',
                 'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
                 'rounded-2xl shadow-2xl',
                 'border border-[#E5E5E5] dark:border-[#1A1A1A]',
@@ -449,8 +449,8 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center space-x-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700 gap-4">
+                  <div className="flex items-center space-x-4 w-full sm:w-auto">
                     {(activeTab || showTabManagement) && (
                       <button
                         onClick={handleBack}
@@ -459,34 +459,33 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                         <div className="i-ph:arrow-left w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-sky-500 transition-colors" />
                       </button>
                     )}
-                    <DialogTitle className="text-xl font-semibold text-gray-900 dark:text-white">
+                    <DialogTitle className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white truncate">
                       {showTabManagement ? 'Tab Management' : activeTab ? TAB_LABELS[activeTab] : 'Control Panel'}
                     </DialogTitle>
                   </div>
 
-                  <div className="flex items-center gap-6">
-                    {/* Mode Toggle */}
-                    <div className="flex items-center gap-2 min-w-[140px] border-r border-gray-200 dark:border-gray-800 pr-6">
+                  <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-6 w-full sm:w-auto">
+                    <div className="flex items-center gap-2 sm:border-r border-gray-200 dark:border-gray-800 sm:pr-6">
                       <AnimatedSwitch
                         id="developer-mode"
                         checked={developerMode}
                         onCheckedChange={handleDeveloperModeChange}
-                        label={developerMode ? 'Developer Mode' : 'User Mode'}
+                        label={developerMode ? 'Dev' : 'User'}
                       />
                     </div>
 
-                    {/* Avatar and Dropdown */}
-                    <div className="border-l border-gray-200 dark:border-gray-800 pl-6">
-                      <AvatarDropdown onSelectTab={handleTabClick} />
-                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="sm:border-l border-gray-200 dark:border-gray-800 sm:pl-6">
+                        <AvatarDropdown onSelectTab={handleTabClick} />
+                      </div>
 
-                    {/* Close Button */}
-                    <button
-                      onClick={handleClose}
-                      className="flex items-center justify-center w-8 h-8 rounded-full bg-transparent hover:bg-sky-500/10 dark:hover:bg-sky-500/20 group transition-all duration-200"
-                    >
-                      <div className="i-ph:x w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-sky-500 transition-colors" />
-                    </button>
+                      <button
+                        onClick={handleClose}
+                        className="flex items-center justify-center w-8 h-8 rounded-full bg-transparent hover:bg-sky-500/10 dark:hover:bg-sky-500/20 group transition-all duration-200"
+                      >
+                        <div className="i-ph:x w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-sky-500 transition-colors" />
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -495,8 +494,7 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                   className={classNames(
                     'flex-1',
                     'overflow-y-auto',
-                    'hover:overflow-y-auto',
-                    'scrollbar scrollbar-w-2',
+                    'scrollbar scrollbar-w-1.5 sm:scrollbar-w-2',
                     'scrollbar-track-transparent',
                     'scrollbar-thumb-[#E5E5E5] hover:scrollbar-thumb-[#CCCCCC]',
                     'dark:scrollbar-thumb-[#333333] dark:hover:scrollbar-thumb-[#444444]',
@@ -510,22 +508,24 @@ export const ControlPanel = ({ open, onClose }: ControlPanelProps) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="p-6"
+                    className="p-4 sm:p-6"
                   >
                     {showTabManagement ? (
                       <TabManagement />
                     ) : activeTab ? (
-                      getTabComponent(activeTab)
+                      <div className="max-w-full overflow-x-hidden">
+                        {getTabComponent(activeTab)}
+                      </div>
                     ) : (
                       <motion.div
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative"
+                        className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 relative"
                         variants={gridLayoutVariants}
                         initial="hidden"
                         animate="visible"
                       >
                         <AnimatePresence mode="popLayout">
                           {(visibleTabs as TabWithDevType[]).map((tab: TabWithDevType) => (
-                            <motion.div key={tab.id} layout variants={itemVariants} className="aspect-[1.5/1]">
+                            <motion.div key={tab.id} layout variants={itemVariants} className="aspect-[1.4/1] sm:aspect-[1.5/1]">
                               <TabTile
                                 tab={tab}
                                 onClick={() => handleTabClick(tab.id as TabType)}
