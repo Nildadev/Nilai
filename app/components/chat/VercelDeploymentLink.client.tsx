@@ -140,7 +140,7 @@ export function VercelDeploymentLink() {
               e.stopPropagation();
             }}
           >
-            <div className={`i-ph:link w-4 h-4 hover:text-blue-400 ${isLoading ? 'animate-pulse' : ''}`} />
+            <div className={`i-ph:link w-4 h-4 hover:text-sky-400 ${isLoading ? 'animate-pulse' : ''}`} />
           </a>
         </Tooltip.Trigger>
         <Tooltip.Portal>

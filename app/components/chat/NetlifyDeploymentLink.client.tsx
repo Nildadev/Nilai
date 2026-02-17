@@ -33,7 +33,7 @@ export function NetlifyDeploymentLink() {
               e.stopPropagation(); // This is to prevent click from bubbling up
             }}
           >
-            <div className="i-ph:link w-4 h-4 hover:text-blue-400" />
+            <div className="i-ph:link w-4 h-4 hover:text-sky-400" />
           </a>
         </Tooltip.Trigger>
         <Tooltip.Portal>

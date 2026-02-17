@@ -567,7 +567,7 @@ export default function ConnectionDiagnostics() {
             <CollapsibleTrigger className="w-full">
               <div className="flex items-center justify-between p-4 rounded-lg bg-bolt-elements-background dark:bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor dark:border-bolt-elements-borderColor hover:border-bolt-elements-borderColorActive/70 dark:hover:border-bolt-elements-borderColorActive/70 transition-all duration-200">
                 <div className="flex items-center gap-2">
-                  <CodeBracketIcon className="w-4 h-4 text-blue-500" />
+                  <CodeBracketIcon className="w-4 h-4 text-sky-500" />
                   <span className="text-sm font-medium text-bolt-elements-textPrimary dark:text-bolt-elements-textPrimary">
                     Diagnostic Details
                   </span>

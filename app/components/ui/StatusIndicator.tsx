@@ -16,8 +16,8 @@ const STATUS_COLORS: Record<StatusType, string> = {
   away: 'bg-yellow-500',
   warning: 'bg-yellow-500',
   busy: 'bg-red-500',
-  info: 'bg-blue-500',
-  loading: 'bg-purple-500',
+  info: 'bg-sky-500',
+  loading: 'bg-sky-500',
 };
 
 // Size class mapping

@@ -171,7 +171,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['ts', 'tsx'].includes(extension)) {
-      return 'text-blue-500';
+      return 'text-sky-500';
     }
 
     if (['html', 'htm', 'xhtml'].includes(extension)) {
@@ -179,7 +179,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['css', 'scss', 'sass', 'less'].includes(extension)) {
-      return 'text-blue-400';
+      return 'text-sky-400';
     }
 
     if (['json', 'jsonc'].includes(extension)) {
@@ -199,7 +199,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['php'].includes(extension)) {
-      return 'text-purple-500';
+      return 'text-sky-500';
     }
 
     if (['rb', 'ruby'].includes(extension)) {
@@ -207,7 +207,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['c', 'cpp', 'h', 'hpp', 'cc'].includes(extension)) {
-      return 'text-blue-600';
+      return 'text-sky-600';
     }
 
     if (['go'].includes(extension)) {
@@ -223,7 +223,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['kt', 'kotlin'].includes(extension)) {
-      return 'text-purple-400';
+      return 'text-sky-400';
     }
 
     if (['dart'].includes(extension)) {
@@ -232,7 +232,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
 
     // Config files
     if (['yml', 'yaml'].includes(extension)) {
-      return 'text-purple-300';
+      return 'text-sky-300';
     }
 
     if (['xml'].includes(extension)) {
@@ -261,7 +261,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['doc', 'docx'].includes(extension)) {
-      return 'text-blue-600';
+      return 'text-sky-600';
     }
 
     if (['xls', 'xlsx'].includes(extension)) {
@@ -287,7 +287,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm', 'mkv'].includes(extension)) {
-      return 'text-blue-500';
+      return 'text-sky-500';
     }
 
     // Archive files
@@ -301,11 +301,11 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (filename === 'tsconfig.json') {
-      return 'text-blue-500';
+      return 'text-sky-500';
     }
 
     if (filename === 'README.md') {
-      return 'text-blue-400';
+      return 'text-sky-400';
     }
 
     if (filename === 'LICENSE') {
@@ -317,7 +317,7 @@ export function FileIcon({ filename, size = 'md', className }: FileIconProps) {
     }
 
     if (filename.startsWith('Dockerfile')) {
-      return 'text-blue-500';
+      return 'text-sky-500';
     }
 
     // Default

@@ -93,9 +93,9 @@ const LogEntryItem = ({ log, isExpanded: forceExpanded, use24Hour, showTimestamp
     if (log.category === 'api') {
       return {
         icon: 'i-ph:cloud',
-        color: 'text-blue-500 dark:text-blue-400',
-        bg: 'hover:bg-blue-500/10 dark:hover:bg-blue-500/20',
-        badge: 'text-blue-500 bg-blue-50 dark:bg-blue-500/10',
+        color: 'text-sky-500 dark:text-sky-400',
+        bg: 'hover:bg-sky-500/10 dark:hover:bg-sky-500/20',
+        badge: 'text-sky-500 bg-sky-50 dark:bg-sky-500/10',
       };
     }
 
@@ -124,9 +124,9 @@ const LogEntryItem = ({ log, isExpanded: forceExpanded, use24Hour, showTimestamp
       default:
         return {
           icon: 'i-ph:info',
-          color: 'text-blue-500 dark:text-blue-400',
-          bg: 'hover:bg-blue-500/10 dark:hover:bg-blue-500/20',
-          badge: 'text-blue-500 bg-blue-50 dark:bg-blue-500/10',
+          color: 'text-sky-500 dark:text-sky-400',
+          bg: 'hover:bg-sky-500/10 dark:hover:bg-sky-500/20',
+          badge: 'text-sky-500 bg-sky-50 dark:bg-sky-500/10',
         };
     }
   }, [log.level, log.category]);
@@ -166,7 +166,7 @@ const LogEntryItem = ({ log, isExpanded: forceExpanded, use24Hour, showTimestamp
       return (
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-            <span className={details.method === 'GET' ? 'text-green-500' : 'text-blue-500'}>{details.method}</span>
+            <span className={details.method === 'GET' ? 'text-green-500' : 'text-sky-500'}>{details.method}</span>
             <span>•</span>
             <span>Status: {details.statusCode}</span>
             <span>•</span>
@@ -230,7 +230,7 @@ const LogEntryItem = ({ log, isExpanded: forceExpanded, use24Hour, showTimestamp
               <>
                 <button
                   onClick={() => setLocalExpanded(!localExpanded)}
-                  className="text-xs text-gray-500 dark:text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
+                  className="text-xs text-gray-500 dark:text-gray-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors"
                 >
                   {localExpanded ? 'Hide' : 'Show'} Details
                 </button>
@@ -808,11 +808,11 @@ export function EventLogsTab() {
             'text-sm text-gray-900 dark:text-white',
             'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
             'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-            'hover:bg-purple-500/10 dark:hover:bg-purple-500/20',
+            'hover:bg-sky-500/10 dark:hover:bg-sky-500/20',
             'transition-all duration-200',
           )}
         >
-          <span className="i-ph:download text-lg text-gray-500 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
+          <span className="i-ph:download text-lg text-gray-500 dark:text-gray-400 group-hover:text-sky-500 transition-colors" />
           Export
         </button>
 
@@ -832,8 +832,8 @@ export function EventLogsTab() {
                     'flex items-center gap-3 px-4 py-3 text-sm rounded-lg transition-colors w-full text-left',
                     'bg-white dark:bg-[#0A0A0A]',
                     'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-                    'hover:bg-purple-50 dark:hover:bg-[#1a1a1a]',
-                    'hover:border-purple-200 dark:hover:border-purple-900/30',
+                    'hover:bg-sky-50 dark:hover:bg-[#1a1a1a]',
+                    'hover:border-sky-200 dark:hover:border-sky-900/30',
                     'text-bolt-elements-textPrimary',
                   )}
                 >
@@ -868,7 +868,7 @@ export function EventLogsTab() {
                 'text-sm text-gray-900 dark:text-white',
                 'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
                 'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-                'hover:bg-purple-500/10 dark:hover:bg-purple-500/20',
+                'hover:bg-sky-500/10 dark:hover:bg-sky-500/20',
                 'transition-all duration-200',
               )}
             >
@@ -891,16 +891,16 @@ export function EventLogsTab() {
               {logLevelOptions.map((option) => (
                 <DropdownMenu.Item
                   key={option.value}
-                  className="group flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-purple-500/10 dark:hover:bg-purple-500/20 cursor-pointer transition-colors"
+                  className="group flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-sky-500/10 dark:hover:bg-sky-500/20 cursor-pointer transition-colors"
                   onClick={() => handleLevelFilterChange(option.value)}
                 >
                   <div className="mr-3 flex h-5 w-5 items-center justify-center">
                     <div
-                      className={classNames(option.icon, 'text-lg group-hover:text-purple-500 transition-colors')}
+                      className={classNames(option.icon, 'text-lg group-hover:text-sky-500 transition-colors')}
                       style={{ color: option.color }}
                     />
                   </div>
-                  <span className="group-hover:text-purple-500 transition-colors">{option.label}</span>
+                  <span className="group-hover:text-sky-500 transition-colors">{option.label}</span>
                 </DropdownMenu.Item>
               ))}
             </DropdownMenu.Content>
@@ -912,7 +912,7 @@ export function EventLogsTab() {
             <Switch
               checked={showTimestamps}
               onCheckedChange={(value) => handlePreferenceChange('timestamps', value)}
-              className="data-[state=checked]:bg-purple-500"
+              className="data-[state=checked]:bg-sky-500"
             />
             <span className="text-sm text-gray-500 dark:text-gray-400">Show Timestamps</span>
           </div>
@@ -921,7 +921,7 @@ export function EventLogsTab() {
             <Switch
               checked={use24Hour}
               onCheckedChange={(value) => handlePreferenceChange('24hour', value)}
-              className="data-[state=checked]:bg-purple-500"
+              className="data-[state=checked]:bg-sky-500"
             />
             <span className="text-sm text-gray-500 dark:text-gray-400">24h Time</span>
           </div>
@@ -930,7 +930,7 @@ export function EventLogsTab() {
             <Switch
               checked={autoExpand}
               onCheckedChange={(value) => handlePreferenceChange('autoExpand', value)}
-              className="data-[state=checked]:bg-purple-500"
+              className="data-[state=checked]:bg-sky-500"
             />
             <span className="text-sm text-gray-500 dark:text-gray-400">Auto Expand</span>
           </div>
@@ -945,12 +945,12 @@ export function EventLogsTab() {
               'text-sm text-gray-900 dark:text-white',
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
-              'hover:bg-purple-500/10 dark:hover:bg-purple-500/20',
+              'hover:bg-sky-500/10 dark:hover:bg-sky-500/20',
               'transition-all duration-200',
               { 'animate-spin': isRefreshing },
             )}
           >
-            <span className="i-ph:arrows-clockwise text-lg text-gray-500 dark:text-gray-400 group-hover:text-purple-500 transition-colors" />
+            <span className="i-ph:arrows-clockwise text-lg text-gray-500 dark:text-gray-400 group-hover:text-sky-500 transition-colors" />
             Refresh
           </button>
 
@@ -970,7 +970,7 @@ export function EventLogsTab() {
               'bg-[#FAFAFA] dark:bg-[#0A0A0A]',
               'border border-[#E5E5E5] dark:border-[#1A1A1A]',
               'text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400',
-              'focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500',
+              'focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500',
               'transition-all duration-200',
             )}
           />

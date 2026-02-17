@@ -1385,7 +1385,7 @@ const TaskManagerTab: React.FC = () => {
                   </span>
                 ) : metrics.processes[0].name === 'Browser' ? (
                   <span>
-                    <div className="i-ph:info-fill w-4 h-4 inline-block mr-1 text-blue-500" />
+                    <div className="i-ph:info-fill w-4 h-4 inline-block mr-1 text-sky-500" />
                     Showing browser process information. System process information is not available in this
                     environment.
                   </span>
@@ -1543,7 +1543,7 @@ const TaskManagerTab: React.FC = () => {
                 className={classNames('flex items-center gap-2 text-sm', {
                   'text-red-500': alert.type === 'error',
                   'text-yellow-500': alert.type === 'warning',
-                  'text-blue-500': alert.type === 'info',
+                  'text-sky-500': alert.type === 'info',
                 })}
               >
                 <div
