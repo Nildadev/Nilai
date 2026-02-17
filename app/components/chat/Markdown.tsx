@@ -5,6 +5,7 @@ import { createScopedLogger } from '~/utils/logger';
 import { rehypePlugins, remarkPlugins, allowedHTMLElements } from '~/utils/markdown';
 import { Artifact } from './Artifact';
 import { CodeBlock } from './CodeBlock';
+import { Mermaid } from './Mermaid';
 
 import styles from './Markdown.module.scss';
 import ThoughtBox from './ThoughtBox';
@@ -56,6 +57,10 @@ export const Markdown = memo(({ children, html = false, limitedMarkdown = false 
         ) {
           const { className, ...rest } = firstChild.properties;
           const [, language = 'plaintext'] = /language-(\w+)/.exec(String(className) || '') ?? [];
+
+          if (language === 'mermaid') {
+            return <Mermaid chart={firstChild.children[0].value} />;
+          }
 
           return <CodeBlock code={firstChild.children[0].value} language={language as BundledLanguage} {...rest} />;
         }
