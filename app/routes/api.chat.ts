@@ -37,12 +37,13 @@ function parseCookies(cookieHeader: string): Record<string, string> {
 }
 
 async function chatAction({ context, request }: ActionFunctionArgs) {
-  const { messages, files, promptId, contextOptimization, supabase, contextSources } = await request.json<{
+  const { messages, files, promptId, contextOptimization, supabase, contextSources, webSearch } = await request.json<{
     messages: Messages;
     files: any;
     promptId?: string;
     contextOptimization: boolean;
     contextSources?: any[];
+    webSearch?: boolean;
     supabase?: {
       isConnected: boolean;
       hasSelectedProject: boolean;
@@ -53,19 +54,46 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
     };
   }>();
 
-  // If we have context sources, inject them into the last user message
-  if (contextSources && contextSources.length > 0) {
+  // Handle Automatic Web Search
+  let searchContext = "";
+  if (webSearch) {
     const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
     if (lastUserMessage) {
-      const contextText = contextSources
-        .map((source: any) => `Source: ${source.name}\nContent:\n${source.content}`)
-        .join('\n\n---\n\n');
+      try {
+        const query = typeof lastUserMessage.content === 'string' ? lastUserMessage.content : "";
+        // Call our own internal search API
+        const searchResponse = await fetch(`${new URL(request.url).origin}/api/search`, {
+          method: 'POST',
+          body: JSON.stringify({ query }),
+        });
+        const searchData = await searchResponse.json() as any;
+        
+        if (searchData.results && searchData.results.length > 0) {
+          searchContext = "\n\n[AUTOMATIC WEB SEARCH RESULTS]\n" + 
+            searchData.results.map((r: any) => `Title: ${r.title}\nSource: ${r.url}\nContent: ${r.snippet}`).join('\n\n');
+        }
+      } catch (e) {
+        console.error("Auto-search failed:", e);
+      }
+    }
+  }
+
+  // If we have context sources or search results, inject them into the last user message
+  if ((contextSources && contextSources.length > 0) || searchContext) {
+    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+    if (lastUserMessage) {
+      let contextText = "";
+      if (contextSources && contextSources.length > 0) {
+        contextText += contextSources
+          .map((source: any) => `Source: ${source.name}\nContent:\n${source.content}`)
+          .join('\n\n---\n\n');
+      }
       
       const originalContent = typeof lastUserMessage.content === 'string' 
         ? lastUserMessage.content 
         : JSON.stringify(lastUserMessage.content);
 
-      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${contextText}\n\n[USER QUESTION]\n${originalContent}`;
+      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${contextText}\n${searchContext}\n\n[USER QUESTION]\n${originalContent}`;
     }
   }
 
