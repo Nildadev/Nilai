@@ -44,6 +44,7 @@ import { expoUrlAtom } from '~/lib/stores/qrCodeStore';
 import { useStore } from '@nanostores/react';
 import { StickToBottom, useStickToBottomContext } from '~/lib/hooks';
 import { webSearchStore, toggleWebSearch } from '~/lib/stores/webSearch';
+import { multiAgentStore, toggleMultiAgent } from '~/lib/stores/multiAgent';
 
 const TEXTAREA_MIN_HEIGHT = 76;
 
@@ -134,6 +135,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const [isModelLoading, setIsModelLoading] = useState<string | undefined>('all');
     const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
     const isWebSearchEnabled = useStore(webSearchStore);
+    const isMultiAgentEnabled = useStore(multiAgentStore);
     const expoUrl = useStore(expoUrlAtom);
     const [qrModalOpen, setQrModalOpen] = useState(false);
 
@@ -626,6 +628,19 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                           }}
                         >
                           <div className="i-ph:globe-duotone text-xl"></div>
+                        </IconButton>
+                        <IconButton
+                          title="AI Reviewer"
+                          className={classNames('transition-all', {
+                            'text-sky-500 bg-sky-500/10': isMultiAgentEnabled,
+                            'text-bolt-elements-textTertiary': !isMultiAgentEnabled,
+                          })}
+                          onClick={() => {
+                            toggleMultiAgent();
+                            toast.info(`AI Reviewer ${!isMultiAgentEnabled ? 'Enabled' : 'Disabled'}`);
+                          }}
+                        >
+                          <div className="i-ph:shield-check-duotone text-xl"></div>
                         </IconButton>
                         {chatStarted && <ClientOnly>{() => <ExportChatButton exportChat={exportChat} />}</ClientOnly>}
                         <IconButton

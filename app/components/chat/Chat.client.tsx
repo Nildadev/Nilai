@@ -28,6 +28,7 @@ import { streamingState } from '~/lib/stores/streaming';
 import { filesToArtifacts } from '~/utils/fileUtils';
 import { supabaseConnection } from '~/lib/stores/supabase';
 import { webSearchStore } from '~/lib/stores/webSearch';
+import { multiAgentStore } from '~/lib/stores/multiAgent';
 
 const toastAnimation = cssTransition({
   enter: 'animated fadeInRight',
@@ -145,6 +146,7 @@ export const ChatImpl = memo(
 
     const { showChat } = useStore(chatStore);
     const isWebSearchEnabled = useStore(webSearchStore);
+    const isMultiAgentEnabled = useStore(multiAgentStore);
 
     const [animationScope, animate] = useAnimate();
 
@@ -171,6 +173,7 @@ export const ChatImpl = memo(
         promptId,
         contextOptimization: contextOptimizationEnabled,
         webSearch: isWebSearchEnabled,
+        multiAgent: isMultiAgentEnabled,
         supabase: {
           isConnected: supabaseConn.isConnected,
           hasSelectedProject: !!selectedProject,
