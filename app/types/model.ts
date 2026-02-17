@@ -14,9 +14,18 @@ export type ProviderInfo = {
   icon?: string;
 };
 
+export interface OpenAILikeConfig {
+  id: string;
+  name: string;
+  baseUrl: string;
+  apiKey: string;
+  enabled: boolean;
+}
+
 export interface IProviderSetting {
   enabled?: boolean;
   baseUrl?: string;
+  openAILikeConfigs?: OpenAILikeConfig[];
 }
 
 export type IProviderConfig = ProviderInfo & {

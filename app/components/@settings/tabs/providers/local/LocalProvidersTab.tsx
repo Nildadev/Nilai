@@ -268,6 +268,41 @@ export default function LocalProvidersTab() {
     setEditingProvider(null);
   };
 
+  const handleAddOpenAILikeConfig = (provider: IProviderConfig) => {
+    const configs = provider.settings.openAILikeConfigs || [];
+    const newConfig = {
+      id: Math.random().toString(36).substring(7),
+      name: `OpenAI Like ${configs.length + 1}`,
+      baseUrl: '',
+      apiKey: '',
+      enabled: true,
+    };
+    updateProviderSettings(provider.name, {
+      ...provider.settings,
+      openAILikeConfigs: [...configs, newConfig],
+    });
+    toast('New OpenAI-like configuration added');
+  };
+
+  const handleUpdateOpenAILikeConfig = (provider: IProviderConfig, configId: string, updates: any) => {
+    const configs = provider.settings.openAILikeConfigs || [];
+    const updatedConfigs = configs.map((c) => (c.id === configId ? { ...c, ...updates } : c));
+    updateProviderSettings(provider.name, {
+      ...provider.settings,
+      openAILikeConfigs: updatedConfigs,
+    });
+  };
+
+  const handleDeleteOpenAILikeConfig = (provider: IProviderConfig, configId: string) => {
+    const configs = provider.settings.openAILikeConfigs || [];
+    const updatedConfigs = configs.filter((c) => c.id !== configId);
+    updateProviderSettings(provider.name, {
+      ...provider.settings,
+      openAILikeConfigs: updatedConfigs,
+    });
+    toast('OpenAI-like configuration removed');
+  };
+
   const handleUpdateOllamaModel = async (modelName: string) => {
     const updateSuccess = await updateOllamaModel(modelName);
 
@@ -698,47 +733,156 @@ export default function LocalProvidersTab() {
                         exit={{ opacity: 0, height: 0 }}
                         className="mt-4"
                       >
-                        <div className="flex flex-col gap-2">
-                          <label className="text-sm text-bolt-elements-textSecondary">API Endpoint</label>
-                          {editingProvider === provider.name ? (
-                            <input
-                              type="text"
-                              defaultValue={provider.settings.baseUrl}
-                              placeholder={`Enter ${provider.name} base URL`}
-                              className={classNames(
-                                'w-full px-3 py-2 rounded-lg text-sm',
-                                'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
-                                'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
-                                'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
-                                'transition-all duration-200',
+                        {provider.name === 'OpenAILike' ? (
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                              <label className="text-sm font-medium text-bolt-elements-textPrimary">
+                                Multiple OpenAI-like Endpoints
+                              </label>
+                              <button
+                                onClick={() => handleAddOpenAILikeConfig(provider)}
+                                className="flex items-center gap-1 text-xs text-sky-500 hover:text-sky-600 transition-colors"
+                              >
+                                <div className="i-ph:plus-circle" />
+                                <span>Add New Endpoint</span>
+                              </button>
+                            </div>
+
+                            <div className="space-y-3">
+                              {(provider.settings.openAILikeConfigs || []).length === 0 && (
+                                <p className="text-xs text-bolt-elements-textTertiary italic">
+                                  No additional endpoints configured. Use the "Add New" button above to get started.
+                                </p>
                               )}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                  handleUpdateBaseUrl(provider, e.currentTarget.value);
-                                } else if (e.key === 'Escape') {
-                                  setEditingProvider(null);
-                                }
-                              }}
-                              onBlur={(e) => handleUpdateBaseUrl(provider, e.target.value)}
-                              autoFocus
-                            />
-                          ) : (
-                            <div
-                              onClick={() => setEditingProvider(provider.name)}
-                              className={classNames(
-                                'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
-                                'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
-                                'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
-                                'transition-all duration-200',
-                              )}
-                            >
-                              <div className="flex items-center gap-2 text-bolt-elements-textSecondary">
-                                <div className="i-ph:link text-sm" />
-                                <span>{provider.settings.baseUrl || 'Click to set base URL'}</span>
+                              {(provider.settings.openAILikeConfigs || []).map((config) => (
+                                <div
+                                  key={config.id}
+                                  className="p-3 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-3 space-y-3 relative"
+                                >
+                                  <div className="flex items-center justify-between gap-2">
+                                    <input
+                                      type="text"
+                                      value={config.name}
+                                      onChange={(e) =>
+                                        handleUpdateOpenAILikeConfig(provider, config.id, { name: e.target.value })
+                                      }
+                                      className="bg-transparent border-none text-sm font-medium text-bolt-elements-textPrimary focus:ring-0 w-full"
+                                      placeholder="Endpoint Name"
+                                    />
+                                    <div className="flex items-center gap-2">
+                                      <Switch
+                                        checked={config.enabled}
+                                        onCheckedChange={(enabled) =>
+                                          handleUpdateOpenAILikeConfig(provider, config.id, { enabled })
+                                        }
+                                        size="sm"
+                                      />
+                                      <button
+                                        onClick={() => handleDeleteOpenAILikeConfig(provider, config.id)}
+                                        className="text-red-500 hover:text-red-600 transition-colors"
+                                      >
+                                        <div className="i-ph:trash" />
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    <div className="space-y-1">
+                                      <label className="text-[10px] uppercase font-bold text-bolt-elements-textTertiary">
+                                        API Endpoint
+                                      </label>
+                                      <input
+                                        type="text"
+                                        value={config.baseUrl}
+                                        onChange={(e) =>
+                                          handleUpdateOpenAILikeConfig(provider, config.id, { baseUrl: e.target.value })
+                                        }
+                                        placeholder="https://api.example.com/v1"
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor rounded-md"
+                                      />
+                                    </div>
+                                    <div className="space-y-1">
+                                      <label className="text-[10px] uppercase font-bold text-bolt-elements-textTertiary">
+                                        API Key
+                                      </label>
+                                      <input
+                                        type="password"
+                                        value={config.apiKey}
+                                        onChange={(e) =>
+                                          handleUpdateOpenAILikeConfig(provider, config.id, { apiKey: e.target.value })
+                                        }
+                                        placeholder="sk-..."
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor rounded-md"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="border-t border-bolt-elements-borderColor pt-3">
+                              <label className="text-sm text-bolt-elements-textSecondary block mb-2">
+                                Default (from .env)
+                              </label>
+                              <div
+                                onClick={() => setEditingProvider(provider.name)}
+                                className={classNames(
+                                  'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
+                                  'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
+                                  'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
+                                  'transition-all duration-200',
+                                )}
+                              >
+                                <div className="flex items-center gap-2 text-bolt-elements-textSecondary">
+                                  <div className="i-ph:link text-sm" />
+                                  <span>{provider.settings.baseUrl || 'No default URL set'}</span>
+                                </div>
                               </div>
                             </div>
-                          )}
-                        </div>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col gap-2">
+                            <label className="text-sm text-bolt-elements-textSecondary">API Endpoint</label>
+                            {editingProvider === provider.name ? (
+                              <input
+                                type="text"
+                                defaultValue={provider.settings.baseUrl}
+                                placeholder={`Enter ${provider.name} base URL`}
+                                className={classNames(
+                                  'w-full px-3 py-2 rounded-lg text-sm',
+                                  'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
+                                  'text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary',
+                                  'focus:outline-none focus:ring-2 focus:ring-sky-500/30',
+                                  'transition-all duration-200',
+                                )}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter') {
+                                    handleUpdateBaseUrl(provider, e.currentTarget.value);
+                                  } else if (e.key === 'Escape') {
+                                    setEditingProvider(null);
+                                  }
+                                }}
+                                onBlur={(e) => handleUpdateBaseUrl(provider, e.target.value)}
+                                autoFocus
+                              />
+                            ) : (
+                              <div
+                                onClick={() => setEditingProvider(provider.name)}
+                                className={classNames(
+                                  'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
+                                  'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
+                                  'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
+                                  'transition-all duration-200',
+                                )}
+                              >
+                                <div className="flex items-center gap-2 text-bolt-elements-textSecondary">
+                                  <div className="i-ph:link text-sm" />
+                                  <span>{provider.settings.baseUrl || 'Click to set base URL'}</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
