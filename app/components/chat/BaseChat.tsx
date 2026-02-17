@@ -44,7 +44,7 @@ import { expoUrlAtom } from '~/lib/stores/qrCodeStore';
 import { useStore } from '@nanostores/react';
 import { StickToBottom, useStickToBottomContext } from '~/lib/hooks';
 import { webSearchStore, toggleWebSearch } from '~/lib/stores/webSearch';
-import { multiAgentStore, toggleMultiAgent } from '~/lib/stores/multiAgent';
+import { multiAgentStore, toggleMultiAgent, setReviewModel } from '~/lib/stores/multiAgent';
 
 const TEXTAREA_MIN_HEIGHT = 76;
 
@@ -135,7 +135,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const [isModelLoading, setIsModelLoading] = useState<string | undefined>('all');
     const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
     const isWebSearchEnabled = useStore(webSearchStore);
-    const isMultiAgentEnabled = useStore(multiAgentStore);
+    const multiAgent = useStore(multiAgentStore);
+    const isMultiAgentEnabled = multiAgent.enabled;
     const expoUrl = useStore(expoUrlAtom);
     const [qrModalOpen, setQrModalOpen] = useState(false);
 
@@ -642,6 +643,20 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                         >
                           <div className="i-ph:shield-check-duotone text-xl"></div>
                         </IconButton>
+
+                        {isMultiAgentEnabled && (
+                          <select
+                            value={multiAgent.model}
+                            onChange={(e) => setReviewModel(e.target.value)}
+                            className="bg-bolt-elements-background-depth-2 text-bolt-elements-textPrimary text-[10px] rounded border border-bolt-elements-borderColor px-1 py-0.5 outline-none focus:ring-1 focus:ring-sky-500/50 max-w-[100px] truncate"
+                          >
+                            {modelList.map((m, i) => (
+                              <option key={i} value={m.name}>
+                                {m.label}
+                              </option>
+                            ))}
+                          </select>
+                        )}
                         {chatStarted && <ClientOnly>{() => <ExportChatButton exportChat={exportChat} />}</ClientOnly>}
                         <IconButton
                           title="Model Settings"

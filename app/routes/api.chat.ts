@@ -31,13 +31,14 @@ function parseCookies(cookieHeader: string): Record<string, string> {
 }
 
 async function chatAction({ context, request }: ActionFunctionArgs) {
-  const { messages, files, promptId, contextOptimization, supabase, webSearch, multiAgent } = await request.json<{
+  const { messages, files, promptId, contextOptimization, supabase, webSearch, multiAgent, multiAgentModel } = await request.json<{
     messages: Messages;
     files: any;
     promptId?: string;
     contextOptimization: boolean;
     webSearch?: boolean;
     multiAgent?: boolean;
+    multiAgentModel?: string;
     supabase?: any;
   }>();
 
@@ -144,7 +145,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
                 const reviewMessages = [
                   ...messages,
                   { role: 'assistant', content },
-                  { role: 'user', content: "As a Senior Code Reviewer, evaluate the code/answer above for Bugs, Security, and Performance. Provide a very concise summary. If perfect, say 'Code looks solid!'" }
+                  { role: 'user', content: `${multiAgentModel ? `[Model: ${multiAgentModel}]\n\n` : ""}As a Senior Code Reviewer, evaluate the code/answer above for Bugs, Security, and Performance. Provide a very concise summary. If perfect, say 'Code looks solid!'` }
                 ];
                 const reviewResult = await internalStreamText({
                   messages: reviewMessages as any, env: context.cloudflare?.env, apiKeys, files, providerSettings, promptId, contextOptimization: false,

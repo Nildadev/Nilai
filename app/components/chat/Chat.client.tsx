@@ -174,6 +174,7 @@ export const ChatImpl = memo(
         contextOptimization: contextOptimizationEnabled,
         webSearch: isWebSearchEnabled,
         multiAgent: isMultiAgentEnabled,
+        multiAgentModel: multiAgent.model,
         supabase: {
           isConnected: supabaseConn.isConnected,
           hasSelectedProject: !!selectedProject,
