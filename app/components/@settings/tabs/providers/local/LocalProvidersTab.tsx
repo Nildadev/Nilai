@@ -757,7 +757,7 @@ export default function LocalProvidersTab() {
                               {(provider.settings.openAILikeConfigs || []).map((config) => (
                                 <div
                                   key={config.id}
-                                  className="p-3 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-3 space-y-3 relative"
+                                  className="p-3 border border-bolt-elements-borderColor rounded-lg bg-bolt-elements-background-depth-1 space-y-3 relative"
                                 >
                                   <div className="flex items-center justify-between gap-2">
                                     <input
@@ -798,7 +798,7 @@ export default function LocalProvidersTab() {
                                           handleUpdateOpenAILikeConfig(provider, config.id, { baseUrl: e.target.value })
                                         }
                                         placeholder="https://api.example.com/v1"
-                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor rounded-md"
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md"
                                       />
                                     </div>
                                     <div className="space-y-1">
@@ -812,7 +812,7 @@ export default function LocalProvidersTab() {
                                           handleUpdateOpenAILikeConfig(provider, config.id, { apiKey: e.target.value })
                                         }
                                         placeholder="sk-..."
-                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor rounded-md"
+                                        className="w-full px-2 py-1 text-xs bg-bolt-elements-background-depth-2 border border-bolt-elements-borderColor rounded-md"
                                       />
                                     </div>
                                   </div>
@@ -828,7 +828,7 @@ export default function LocalProvidersTab() {
                                 onClick={() => setEditingProvider(provider.name)}
                                 className={classNames(
                                   'w-full px-3 py-2 rounded-lg text-sm cursor-pointer',
-                                  'bg-bolt-elements-background-depth-3 border border-bolt-elements-borderColor',
+                                  'bg-bolt-elements-background-depth-1 border border-bolt-elements-borderColor',
                                   'hover:border-sky-500/30 hover:bg-bolt-elements-background-depth-4',
                                   'transition-all duration-200',
                                 )}
