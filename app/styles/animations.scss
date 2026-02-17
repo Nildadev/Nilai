@@ -62,8 +62,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   animation: shimmer 3s linear infinite;
-  padding: 4px 0;
+  padding: 4px 8px 4px 0; /* Added right padding for slant */
+  margin-right: -8px; /* Offset the padding to keep spacing tight */
   line-height: 1.2;
+  display: inline-block; /* Essential for padding to work on inline elements */
 }
 
 @keyframes shimmer {
@@ -86,6 +88,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   animation: shimmer 3s linear infinite;
-  padding: 4px 0;
+  padding: 4px 12px 4px 0; /* Extra space for italic 'ai' */
+  margin-right: -12px;
   line-height: 1.2;
+  display: inline-block;
 }
