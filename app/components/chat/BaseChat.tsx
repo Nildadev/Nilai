@@ -136,8 +136,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
     const [isModelLoading, setIsModelLoading] = useState<string | undefined>('all');
     const [progressAnnotations, setProgressAnnotations] = useState<ProgressAnnotation[]>([]);
     const isWebSearchEnabled = useStore(webSearchStore);
-    const multiAgent = useStore(multiAgentStore);
-    const isMultiAgentEnabled = multiAgent.enabled;
+    const multiAgentState = useStore(multiAgentStore);
+    const isMultiAgentEnabled = multiAgentState.enabled;
     const expoUrl = useStore(expoUrlAtom);
     const [qrModalOpen, setQrModalOpen] = useState(false);
 
@@ -647,7 +647,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
 
                         {isMultiAgentEnabled && (
                           <ReviewModelSelector
-                            model={multiAgent.model}
+                            model={multiAgentState.model}
                             setModel={setReviewModel}
                             modelList={modelList}
                           />

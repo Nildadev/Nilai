@@ -311,6 +311,15 @@ ${value.content}
         description.set(firstArtifact?.title);
       }
 
+      if (!description.get() && messages.length > 0) {
+        const firstUserMessage = messages.find((m) => m.role === 'user');
+
+        if (firstUserMessage && typeof firstUserMessage.content === 'string') {
+          const content = firstUserMessage.content.split('\n')[0].slice(0, 40);
+          description.set(content || 'New Chat');
+        }
+      }
+
       // Ensure chatId.get() is used here as well
       if (initialMessages.length === 0 && !chatId.get()) {
         const nextId = await getNextId(db);
@@ -336,7 +345,7 @@ ${value.content}
         db,
         finalChatId, // Use the potentially updated chatId
         [...archivedMessages, ...messages],
-        urlId,
+        urlId || finalChatId,
         description.get(),
         undefined,
         chatMetadata.get(),

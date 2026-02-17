@@ -146,7 +146,7 @@ export const ChatImpl = memo(
 
     const { showChat } = useStore(chatStore);
     const isWebSearchEnabled = useStore(webSearchStore);
-    const multiAgent = useStore(multiAgentStore);
+    const multiAgentState = useStore(multiAgentStore);
 
     const [animationScope, animate] = useAnimate();
 
@@ -173,8 +173,8 @@ export const ChatImpl = memo(
         promptId,
         contextOptimization: contextOptimizationEnabled,
         webSearch: isWebSearchEnabled,
-        multiAgent: multiAgent.enabled,
-        multiAgentModel: multiAgent.model,
+        multiAgent: multiAgentState.enabled,
+        multiAgentModel: multiAgentState.model,
         supabase: {
           isConnected: supabaseConn.isConnected,
           hasSelectedProject: !!selectedProject,
