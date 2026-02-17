@@ -1,38 +1,17 @@
-import { type ActionFunctionArgs } from '@remix-run/cloudflare';
+import { type ActionFunctionArgs, json } from '@remix-run/cloudflare';
 import { createDataStream, generateId } from 'ai';
-import { MAX_RESPONSE_SEGMENTS, MAX_TOKENS, type FileMap } from '~/lib/.server/llm/constants';
-import { CONTINUE_PROMPT } from '~/lib/common/prompts/prompts';
-import { streamText, type Messages, type StreamingOptions } from '~/lib/.server/llm/stream-text';
-import SwitchableStream from '~/lib/.server/llm/switchable-stream';
-import type { IProviderSetting } from '~/types/model';
-import { createScopedLogger } from '~/utils/logger';
-import { getFilePaths, selectContext } from '~/lib/.server/llm/select-context';
-import type { ContextAnnotation, ProgressAnnotation } from '~/types/context';
-import { WORK_DIR } from '~/utils/constants';
-import { createSummary } from '~/lib/.server/llm/create-summary';
-import { extractPropertiesFromMessage } from '~/lib/.server/llm/utils';
 
 export async function action(args: ActionFunctionArgs) {
-  return chatAction(args);
-}
-
-const logger = createScopedLogger('api.chat');
-
-function parseCookies(cookieHeader: string): Record<string, string> {
-  const cookies: Record<string, string> = {};
-  const items = cookieHeader.split(';').map((cookie) => cookie.trim());
-  items.forEach((item) => {
-    const [name, ...rest] = item.split('=');
-    if (name && rest) {
-      cookies[decodeURIComponent(name.trim())] = decodeURIComponent(rest.join('=').trim());
-    }
-  });
-  return cookies;
-}
-
-async function chatAction({ context, request }: ActionFunctionArgs) {
+  const { context, request } = args;
+  
+  // Dynamic imports for server-only modules to avoid client-side leakage
+  const { MAX_RESPONSE_SEGMENTS, MAX_TOKENS } = await import('~/lib/.server/llm/constants');
+  const { streamText } = await import('~/lib/.server/llm/stream-text');
+  const { getFilePaths, selectContext } = await import('~/lib/.server/llm/select-context');
+  const { createSummary } = await import('~/lib/.server/llm/create-summary');
+  
   const { messages, files, promptId, contextOptimization, supabase, webSearch, multiAgent, multiAgentModel } = await request.json<{
-    messages: Messages;
+    messages: any[];
     files: any;
     promptId?: string;
     contextOptimization: boolean;
@@ -42,13 +21,22 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
     supabase?: any;
   }>();
 
+  function parseCookies(cookieHeader: string): Record<string, string> {
+    const cookies: Record<string, string> = {};
+    const items = cookieHeader.split(';').map((cookie) => cookie.trim());
+    items.forEach((item) => {
+      const [name, ...rest] = item.split('=');
+      if (name && rest) {
+        cookies[decodeURIComponent(name.trim())] = decodeURIComponent(rest.join('=').trim());
+      }
+    });
+    return cookies;
+  }
+
   const cookieHeader = request.headers.get('Cookie');
   const apiKeys = JSON.parse(parseCookies(cookieHeader || '').apiKeys || '{}');
-  const providerSettings: Record<string, IProviderSetting> = JSON.parse(
-    parseCookies(cookieHeader || '').providers || '{}',
-  );
+  const providerSettings = JSON.parse(parseCookies(cookieHeader || '').providers || '{}');
 
-  const stream = new SwitchableStream();
   const cumulativeUsage = { completionTokens: 0, promptTokens: 0, totalTokens: 0 };
   const encoder = new TextEncoder();
   let progressCounter = 1;
@@ -62,7 +50,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
         if (webSearch) {
           dataStream.writeData({
             type: 'progress', label: 'web-search', status: 'in-progress', order: progressCounter++, message: 'Searching the web...',
-          } satisfies ProgressAnnotation);
+          });
 
           const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
           if (lastUserMessage) {
@@ -78,7 +66,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
                   searchData.results.map((r: any) => `Title: ${r.title}\nSource: ${r.url}\nContent: ${r.snippet}`).join('\n\n');
                 dataStream.writeData({
                   type: 'progress', label: 'web-search', status: 'complete', order: progressCounter++, message: `Found ${searchData.results.length} relevant sources`,
-                } satisfies ProgressAnnotation);
+                });
               }
             } catch (e) {
               console.error("Auto-search failed:", e);
@@ -96,14 +84,14 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
 
         // 2. Optimization & Context Selection
         const filePaths = getFilePaths(files || {});
-        let filteredFiles: FileMap | undefined = undefined;
+        let filteredFiles: any = undefined;
         let summary: string | undefined = undefined;
         let messageSliceId = messages.length > 3 ? messages.length - 3 : 0;
 
         if (filePaths.length > 0 && contextOptimization) {
           summary = await createSummary({
             messages, env: context.cloudflare?.env, apiKeys, providerSettings, promptId, contextOptimization,
-            onFinish(resp) {
+            onFinish(resp: any) {
               if (resp.usage) {
                 cumulativeUsage.completionTokens += resp.usage.completionTokens || 0;
                 cumulativeUsage.promptTokens += resp.usage.promptTokens || 0;
@@ -113,7 +101,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
           });
           filteredFiles = await selectContext({
             messages, env: context.cloudflare?.env, apiKeys, files, providerSettings, promptId, contextOptimization, summary,
-            onFinish(resp) {
+            onFinish(resp: any) {
               if (resp.usage) {
                 cumulativeUsage.completionTokens += resp.usage.completionTokens || 0;
                 cumulativeUsage.promptTokens += resp.usage.promptTokens || 0;
@@ -124,10 +112,10 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
         }
 
         // 3. Streaming Response
-        const options: StreamingOptions = {
+        const options: any = {
           supabaseConnection: supabase,
           toolChoice: 'none',
-          onFinish: async ({ text: content, finishReason, usage }) => {
+          onFinish: async ({ text: content, finishReason, usage }: any) => {
             if (usage) {
               cumulativeUsage.completionTokens += usage.completionTokens || 0;
               cumulativeUsage.promptTokens += usage.promptTokens || 0;
@@ -138,16 +126,15 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
             if (multiAgent && finishReason === 'stop') {
               dataStream.writeData({
                 type: 'progress', label: 'review', status: 'in-progress', order: progressCounter++, message: 'AI Reviewer is analyzing...',
-              } satisfies ProgressAnnotation);
+              });
 
               try {
-                const { streamText: internalStreamText } = await import('~/lib/.server/llm/stream-text');
                 const reviewMessages = [
                   ...messages,
                   { role: 'assistant', content },
                   { role: 'user', content: `${multiAgentModel ? `[Model: ${multiAgentModel}]\n\n` : ""}As a Senior Code Reviewer, evaluate the code/answer above for Bugs, Security, and Performance. Provide a very concise summary. If perfect, say 'Code looks solid!'` }
                 ];
-                const reviewResult = await internalStreamText({
+                const reviewResult = await streamText({
                   messages: reviewMessages as any, env: context.cloudflare?.env, apiKeys, files, providerSettings, promptId, contextOptimization: false,
                 });
 
@@ -159,7 +146,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
 
                 dataStream.writeData({
                   type: 'progress', label: 'review', status: 'complete', order: progressCounter++, message: 'Review completed',
-                } satisfies ProgressAnnotation);
+                });
               } catch (e) {
                 console.error("Review failed:", e);
               }
@@ -172,7 +159,7 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
               });
               dataStream.writeData({
                 type: 'progress', label: 'response', status: 'complete', order: progressCounter++, message: 'Response Generated',
-              } satisfies ProgressAnnotation);
+              });
               return;
             }
           },
@@ -215,7 +202,6 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
       },
     });
   } catch (error: any) {
-    logger.error(error);
     return new Response(null, { status: 500 });
   }
 }
