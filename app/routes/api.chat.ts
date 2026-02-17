@@ -53,42 +53,6 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
     };
   }>();
 
-  // Handle Automatic Web Search
-  let searchContext = "";
-  if (webSearch) {
-    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
-    if (lastUserMessage) {
-      try {
-        const query = typeof lastUserMessage.content === 'string' ? lastUserMessage.content : "";
-        // Call our own internal search API
-        const searchResponse = await fetch(`${new URL(request.url).origin}/api/search`, {
-          method: 'POST',
-          body: JSON.stringify({ query }),
-        });
-        const searchData = await searchResponse.json() as any;
-        
-        if (searchData.results && searchData.results.length > 0) {
-          searchContext = "\n\n[AUTOMATIC WEB SEARCH RESULTS]\n" + 
-            searchData.results.map((r: any) => `Title: ${r.title}\nSource: ${r.url}\nContent: ${r.snippet}`).join('\n\n');
-        }
-      } catch (e) {
-        console.error("Auto-search failed:", e);
-      }
-    }
-  }
-
-  // If we have search results, inject them into the last user message
-  if (searchContext) {
-    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
-    if (lastUserMessage) {
-      const originalContent = typeof lastUserMessage.content === 'string' 
-        ? lastUserMessage.content 
-        : JSON.stringify(lastUserMessage.content);
-
-      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${searchContext}\n\n[USER QUESTION]\n${originalContent}`;
-    }
-  }
-
   const cookieHeader = request.headers.get('Cookie');
   const apiKeys = JSON.parse(parseCookies(cookieHeader || '').apiKeys || '{}');
   const providerSettings: Record<string, IProviderSetting> = JSON.parse(
@@ -113,6 +77,54 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
 
     const dataStream = createDataStream({
       async execute(dataStream) {
+        // Handle Automatic Web Search inside dataStream to show progress
+        let searchContext = "";
+        if (webSearch) {
+          dataStream.writeData({
+            type: 'progress',
+            label: 'web-search',
+            status: 'in-progress',
+            order: progressCounter++,
+            message: 'Searching the web...',
+          } satisfies ProgressAnnotation);
+
+          const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+          if (lastUserMessage) {
+            try {
+              const query = typeof lastUserMessage.content === 'string' ? lastUserMessage.content : "";
+              const searchResponse = await fetch(`${new URL(request.url).origin}/api/search`, {
+                method: 'POST',
+                body: JSON.stringify({ query }),
+              });
+              const searchData = await searchResponse.json() as any;
+              
+              if (searchData.results && searchData.results.length > 0) {
+                searchContext = "\n\n[SYSTEM NOTE: The following are REAL-TIME search results. Use them for accuracy.]\n" + 
+                  searchData.results.map((r: any) => `Title: ${r.title}\nSource: ${r.url}\nContent: ${r.snippet}`).join('\n\n');
+                
+                dataStream.writeData({
+                  type: 'progress',
+                  label: 'web-search',
+                  status: 'complete',
+                  order: progressCounter++,
+                  message: `Found ${searchData.results.length} relevant sources`,
+                } satisfies ProgressAnnotation);
+              }
+            } catch (e) {
+              console.error("Auto-search failed:", e);
+            }
+          }
+        }
+
+        // If we have search results, inject them
+        if (searchContext) {
+          const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+          if (lastUserMessage) {
+            const originalContent = typeof lastUserMessage.content === 'string' ? lastUserMessage.content : "";
+            lastUserMessage.content = `${searchContext}\n\n---\n\n[USER QUESTION]\n${originalContent}`;
+          }
+        }
+
         const filePaths = getFilePaths(files || {});
         let filteredFiles: FileMap | undefined = undefined;
         let summary: string | undefined = undefined;
