@@ -37,11 +37,12 @@ function parseCookies(cookieHeader: string): Record<string, string> {
 }
 
 async function chatAction({ context, request }: ActionFunctionArgs) {
-  const { messages, files, promptId, contextOptimization, supabase } = await request.json<{
+  const { messages, files, promptId, contextOptimization, supabase, contextSources } = await request.json<{
     messages: Messages;
     files: any;
     promptId?: string;
     contextOptimization: boolean;
+    contextSources?: any[];
     supabase?: {
       isConnected: boolean;
       hasSelectedProject: boolean;
@@ -51,6 +52,22 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
       };
     };
   }>();
+
+  // If we have context sources, inject them into the last user message
+  if (contextSources && contextSources.length > 0) {
+    const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
+    if (lastUserMessage) {
+      const contextText = contextSources
+        .map((source: any) => `Source: ${source.name}\nContent:\n${source.content}`)
+        .join('\n\n---\n\n');
+      
+      const originalContent = typeof lastUserMessage.content === 'string' 
+        ? lastUserMessage.content 
+        : JSON.stringify(lastUserMessage.content);
+
+      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${contextText}\n\n[USER QUESTION]\n${originalContent}`;
+    }
+  }
 
   const cookieHeader = request.headers.get('Cookie');
   const apiKeys = JSON.parse(parseCookies(cookieHeader || '').apiKeys || '{}');

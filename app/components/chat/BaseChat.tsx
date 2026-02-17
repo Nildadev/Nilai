@@ -21,6 +21,7 @@ import { ExportChatButton } from '~/components/chat/chatExportAndImport/ExportCh
 import { ImportButtons } from '~/components/chat/chatExportAndImport/ImportButtons';
 import { ExamplePrompts } from '~/components/chat/ExamplePrompts';
 import GitCloneButton from './GitCloneButton';
+import { ContextManager } from './ContextManager';
 
 import FilePreview from './FilePreview';
 import { ModelSelector } from '~/components/chat/ModelSelector';
@@ -446,7 +447,8 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                   <div>
                     <ClientOnly>
                       {() => (
-                        <div className={isModelSettingsCollapsed ? 'hidden' : ''}>
+                        <div className={isModelSettingsCollapsed ? 'hidden' : 'space-y-4 mb-4'}>
+                          <ContextManager />
                           <ModelSelector
                             key={provider?.name + ':' + modelList.length}
                             model={model}
