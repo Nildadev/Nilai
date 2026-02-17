@@ -37,12 +37,11 @@ function parseCookies(cookieHeader: string): Record<string, string> {
 }
 
 async function chatAction({ context, request }: ActionFunctionArgs) {
-  const { messages, files, promptId, contextOptimization, supabase, contextSources, webSearch } = await request.json<{
+  const { messages, files, promptId, contextOptimization, supabase, webSearch } = await request.json<{
     messages: Messages;
     files: any;
     promptId?: string;
     contextOptimization: boolean;
-    contextSources?: any[];
     webSearch?: boolean;
     supabase?: {
       isConnected: boolean;
@@ -78,22 +77,15 @@ async function chatAction({ context, request }: ActionFunctionArgs) {
     }
   }
 
-  // If we have context sources or search results, inject them into the last user message
-  if ((contextSources && contextSources.length > 0) || searchContext) {
+  // If we have search results, inject them into the last user message
+  if (searchContext) {
     const lastUserMessage = [...messages].reverse().find(m => m.role === 'user');
     if (lastUserMessage) {
-      let contextText = "";
-      if (contextSources && contextSources.length > 0) {
-        contextText += contextSources
-          .map((source: any) => `Source: ${source.name}\nContent:\n${source.content}`)
-          .join('\n\n---\n\n');
-      }
-      
       const originalContent = typeof lastUserMessage.content === 'string' 
         ? lastUserMessage.content 
         : JSON.stringify(lastUserMessage.content);
 
-      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${contextText}\n${searchContext}\n\n[USER QUESTION]\n${originalContent}`;
+      lastUserMessage.content = `[KNOWLEDGE BASE CONTEXT]\n${searchContext}\n\n[USER QUESTION]\n${originalContent}`;
     }
   }
 
