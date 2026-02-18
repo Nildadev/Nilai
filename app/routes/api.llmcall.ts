@@ -73,31 +73,47 @@ async function llmCallAction({ context, request }: ActionFunctionArgs) {
       }
     } else {
       try {
+        console.log(`[api.llmcall] Fetching model list for provider: ${providerName}`);
         const models = await getModelList({ apiKeys, providerSettings, serverEnv });
+        
+        if (!models || models.length === 0) {
+           console.error('[api.llmcall] No models found from getModelList');
+           throw new Error('No models available');
+        }
+
         const modelDetails = models.find((m: ModelInfo) => m.name === model);
 
         if (!modelDetails) {
-          throw new Error('Model not found');
+          console.error(`[api.llmcall] Model not found: ${model}. Available models: ${models.map(m => m.name).join(', ')}`);
+          throw new Error(`Model not found: ${model}`);
         }
 
         const dynamicMaxTokens = modelDetails && modelDetails.maxTokenAllowed ? modelDetails.maxTokenAllowed : MAX_TOKENS;
         const providerInfo = PROVIDER_LIST.find((p) => p.name === provider.name);
 
         if (!providerInfo) {
+          console.error(`[api.llmcall] Provider not found in PROVIDER_LIST: ${provider.name}`);
           throw new Error('Provider not found');
         }
 
         logger.info(`Generating response Provider: ${provider.name}, Model: ${modelDetails.name}`);
+        
+        const modelInstance = providerInfo.getModelInstance({
+          model: modelDetails.name,
+          serverEnv: serverEnv as any,
+          apiKeys,
+          providerSettings,
+        });
+
+        if (!modelInstance) {
+             console.error(`[api.llmcall] Failed to get model instance for ${modelDetails.name}`);
+             throw new Error('Failed to instantiate model');
+        }
 
         const result = await generateText({
           system,
           messages: [{ role: 'user', content: `${message}` }],
-          model: providerInfo.getModelInstance({
-            model: modelDetails.name,
-            serverEnv: serverEnv as any,
-            apiKeys,
-            providerSettings,
-          }),
+          model: modelInstance,
           maxTokens: dynamicMaxTokens,
           toolChoice: 'none',
         });
@@ -107,11 +123,11 @@ async function llmCallAction({ context, request }: ActionFunctionArgs) {
           headers: { 'Content-Type': 'application/json' },
         });
       } catch (error: any) {
-        console.log('Generate Error:', error);
+        console.error('[api.llmcall] Generate Error Details:', error);
         if (error.message?.includes('API key')) {
           return new Response(JSON.stringify({ error: 'Invalid or missing API key' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
         }
-        return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+        return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message, stack: error.stack }), { status: 500, headers: { 'Content-Type': 'application/json' } });
       }
     }
   } catch (error: any) {

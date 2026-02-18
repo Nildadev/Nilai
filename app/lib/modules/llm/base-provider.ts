@@ -48,6 +48,12 @@ export abstract class BaseProvider implements ProviderInfo {
     const apiKey =
       apiKeys?.[this.name] || serverEnv?.[apiTokenKey] || process?.env?.[apiTokenKey] || manager.env?.[apiTokenKey];
 
+    if (!apiKey) {
+        console.warn(`[BaseProvider] No API key found for ${this.name}. Checked keys: ${this.name} in apiKeys, ${apiTokenKey} in env.`);
+    } else {
+        console.log(`[BaseProvider] API key found for ${this.name} (length: ${apiKey.length})`);
+    }
+
     return {
       baseUrl,
       apiKey,
