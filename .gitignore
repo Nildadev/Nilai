@@ -46,3 +46,7 @@ docs/instructions/Roadmap.md
 .cursorrules
 *.md
 .qodo
+
+# Cloudflare
+wrangler.toml
+!wrangler.example.toml
