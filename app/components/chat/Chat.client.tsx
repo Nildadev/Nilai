@@ -168,6 +168,7 @@ export const ChatImpl = memo(
     } = useChat({
       api: '/api/chat',
       body: {
+        // Ensure all required fields are passed to the API
         apiKeys,
         files,
         promptId,
