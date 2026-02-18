@@ -16,7 +16,7 @@ export class LLMManager {
     this._env = _env;
   }
 
-  static getInstance(env: Record<string, string> = {}): LLMManager {
+  static getInstance(env: Record<string, string> = import.meta.env): LLMManager {
     if (!LLMManager._instance) {
       LLMManager._instance = new LLMManager(env);
     }

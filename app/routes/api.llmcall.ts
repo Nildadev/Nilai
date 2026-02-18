@@ -47,7 +47,7 @@ async function llmCallAction({ context, request }: ActionFunctionArgs) {
   const cookieHeader = request.headers.get('Cookie');
   const apiKeys = getApiKeysFromCookie(cookieHeader);
   const providerSettings = getProviderSettingsFromCookie(cookieHeader);
-  const serverEnv = context.cloudflare?.env as Record<string, string>;
+  const serverEnv = (context.cloudflare?.env as Record<string, string>) || import.meta.env;
 
   if (streamOutput) {
     try {
