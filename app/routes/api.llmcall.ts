@@ -89,14 +89,32 @@ async function llmCallAction({ context, request }: ActionFunctionArgs) {
         }
 
         const dynamicMaxTokens = modelDetails && modelDetails.maxTokenAllowed ? modelDetails.maxTokenAllowed : MAX_TOKENS;
-        const providerInfo = PROVIDER_LIST.find((p) => p.name === provider.name);
+        const llmManager = LLMManager.getInstance(serverEnv);
+        const providerInfo = llmManager.getProvider(provider.name);
 
         if (!providerInfo) {
-          console.error(`[api.llmcall] Provider not found in PROVIDER_LIST: ${provider.name}`);
-          throw new Error('Provider not found');
+          console.error(`[api.llmcall] Provider not found in LLMManager: ${provider.name}`);
+          return new Response(JSON.stringify({ error: `Provider ${provider.name} not found` }), { status: 400, headers: { 'Content-Type': 'application/json' } });
         }
 
-        logger.info(`Generating response Provider: ${provider.name}, Model: ${modelDetails.name}`);
+        // Pre-validate API key
+        const { apiKey, baseUrl } = providerInfo.getProviderBaseUrlAndKey({
+          apiKeys,
+          providerSettings: providerSettings?.[provider.name],
+          serverEnv,
+          defaultBaseUrlKey: (providerInfo as any).config?.baseUrlKey || '',
+          defaultApiTokenKey: (providerInfo as any).config?.apiTokenKey || '',
+        });
+
+        if (!apiKey && provider.name !== 'Ollama') {
+           console.error(`[api.llmcall] API key missing for ${provider.name}`);
+           return new Response(JSON.stringify({ 
+             error: `API key missing for ${provider.name}`,
+             details: 'Please set the API key in Settings or environment variables.' 
+           }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+        }
+
+        logger.info(`Generating response Provider: ${provider.name}, Model: ${modelDetails.name}, BaseURL: ${baseUrl || 'default'}`);
         
         const modelInstance = providerInfo.getModelInstance({
           model: modelDetails.name,

@@ -78,14 +78,15 @@ export async function streamText(props: {
     return message;
   });
 
-  const provider = PROVIDER_LIST.find((p) => p.name === currentProvider) || DEFAULT_PROVIDER;
-  const staticModels = LLMManager.getInstance().getStaticModelListFromProvider(provider);
+  const llmManager = LLMManager.getInstance(serverEnv as any);
+  const provider = llmManager.getProvider(currentProvider) || llmManager.getDefaultProvider();
+  const staticModels = llmManager.getStaticModelListFromProvider(provider);
   let modelDetails = staticModels.find((m) => m.name === currentModel);
 
   if (!modelDetails) {
     const modelsList = [
       ...(provider.staticModels || []),
-      ...(await LLMManager.getInstance().getModelListFromProvider(provider, {
+      ...(await llmManager.getModelListFromProvider(provider, {
         apiKeys,
         providerSettings,
         serverEnv: serverEnv as any,
@@ -180,7 +181,18 @@ ${lockedFilesListString}
 
   logger.info(`Sending llm call to ${provider.name} with model ${modelDetails.name}`);
 
-  // console.log(systemPrompt, processedMessages);
+  // Pre-validate API key
+  const { apiKey } = provider.getProviderBaseUrlAndKey({
+    apiKeys,
+    providerSettings: providerSettings?.[provider.name],
+    serverEnv: serverEnv as any,
+    defaultBaseUrlKey: (provider as any).config?.baseUrlKey || '',
+    defaultApiTokenKey: (provider as any).config?.apiTokenKey || '',
+  });
+
+  if (!apiKey && provider.name !== 'Ollama' && provider.name !== 'LMStudio') {
+    throw new Error(`API key missing for ${provider.name}. Please set it in Settings.`);
+  }
 
   return await _streamText({
     model: provider.getModelInstance({

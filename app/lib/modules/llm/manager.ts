@@ -19,6 +19,9 @@ export class LLMManager {
   static getInstance(env: Record<string, string> = import.meta.env): LLMManager {
     if (!LLMManager._instance) {
       LLMManager._instance = new LLMManager(env);
+    } else if (env !== import.meta.env && Object.keys(env).length > 0) {
+      // Update env if a specific one is provided (important for Cloudflare Workers request context)
+      Object.assign((LLMManager._instance as any)._env, env);
     }
 
     return LLMManager._instance;
