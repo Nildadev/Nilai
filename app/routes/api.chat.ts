@@ -4,11 +4,13 @@ import { createDataStream, generateId } from 'ai';
 export async function action(args: ActionFunctionArgs) {
   const { context, request } = args;
   
-  // Dynamic imports for server-only modules to avoid client-side leakage
+  // Dynamic imports for server-only modules
   const { MAX_RESPONSE_SEGMENTS, MAX_TOKENS } = await import('~/lib/.server/llm/constants');
   const { streamText } = await import('~/lib/.server/llm/stream-text');
   const { getFilePaths, selectContext } = await import('~/lib/.server/llm/select-context');
   const { createSummary } = await import('~/lib/.server/llm/create-summary');
+  const { CONTINUE_PROMPT } = await import('~/lib/common/prompts/prompts');
+  const { extractPropertiesFromMessage } = await import('~/lib/.server/llm/utils');
   
   const { messages, files, promptId, contextOptimization, supabase, webSearch, multiAgent, multiAgentModel } = await request.json<{
     messages: any[];
@@ -41,6 +43,7 @@ export async function action(args: ActionFunctionArgs) {
   const encoder = new TextEncoder();
   let progressCounter = 1;
   let lastChunk: string | undefined = undefined;
+  let currentSwitches = 0;
 
   try {
     const dataStream = createDataStream({
@@ -122,8 +125,30 @@ export async function action(args: ActionFunctionArgs) {
               cumulativeUsage.totalTokens += usage.totalTokens || 0;
             }
 
+            // Handle Auto-Continue if stopped due to length
+            if (finishReason === 'length' && currentSwitches < MAX_RESPONSE_SEGMENTS) {
+              currentSwitches++;
+              
+              const lastUserMessage = messages.filter((x) => x.role == 'user').slice(-1)[0];
+              const { model: currentModel, provider: currentProvider } = extractPropertiesFromMessage(lastUserMessage);
+              
+              messages.push({ id: generateId(), role: 'assistant', content });
+              messages.push({
+                id: generateId(),
+                role: 'user',
+                content: `[Model: ${currentModel}]\n\n[Provider: ${currentProvider}]\n\n${CONTINUE_PROMPT}`,
+              });
+
+              const result = await streamText({
+                messages, env: context.cloudflare?.env, options, apiKeys, files, providerSettings, promptId, contextOptimization, contextFiles: filteredFiles, summary, messageSliceId,
+              });
+
+              result.mergeIntoDataStream(dataStream);
+              return;
+            }
+
             // 4. Handle Multi-Agent Review
-            if (multiAgent && finishReason === 'stop') {
+            if (multiAgent && (finishReason === 'stop' || finishReason === 'length')) {
               dataStream.writeData({
                 type: 'progress', label: 'review', status: 'in-progress', order: progressCounter++, message: 'AI Reviewer is analyzing...',
               });
