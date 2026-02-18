@@ -40,7 +40,7 @@ export const WelcomeNotice = () => {
                   Welcome to <span className="font-bold text-sky-500">nil.ai</span>!
                 </p>
                 <p>
-                  This platform is currently under active development. You may encounter bugs, incomplete features, or performance issues.
+                  nil.ai is currently in its early beta phase. We are working hard to refine features and ensure stability. Expect frequent updates and improvements.
                 </p>
                 <p className="p-3 bg-sky-500/5 rounded-lg border border-sky-500/10 italic">
                   If you encounter any issues or have feedback, please contact us at:
