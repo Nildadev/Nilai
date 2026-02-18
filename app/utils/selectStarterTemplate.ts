@@ -95,7 +95,16 @@ export const selectStarterTemplate = async (options: { message: string; model: s
   const respJson: { text: string } = await response.json();
   console.log(respJson);
 
-  const { text } = respJson;
+  const { text } = respJson || {};
+  
+  if (!text) {
+    console.warn('Empty or invalid response from LLM call');
+    return {
+      template: 'blank',
+      title: '',
+    };
+  }
+
   const selectedTemplate = parseSelectedTemplate(text);
 
   if (selectedTemplate) {
