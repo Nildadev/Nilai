@@ -1,5 +1,4 @@
 import { type ActionFunctionArgs } from '@remix-run/cloudflare';
-import { streamText } from '~/lib/.server/llm/stream-text';
 import { stripIndents } from '~/utils/stripIndent';
 import type { ProviderInfo } from '~/types/model';
 import { getApiKeysFromCookie, getProviderSettingsFromCookie } from '~/lib/api/cookies';
@@ -9,9 +8,12 @@ export async function action(args: ActionFunctionArgs) {
   return enhancerAction(args);
 }
 
-const logger = createScopedLogger('api.enhancher');
+const logger = createScopedLogger('api.enhancer');
 
 async function enhancerAction({ context, request }: ActionFunctionArgs) {
+  // Dynamic import for server-only module
+  const { streamText } = await import('~/lib/.server/llm/stream-text');
+
   const { message, model, provider } = await request.json<{
     message: string;
     model: string;
@@ -21,19 +23,12 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
 
   const { name: providerName } = provider;
 
-  // validate 'model' and 'provider' fields
   if (!model || typeof model !== 'string') {
-    throw new Response('Invalid or missing model', {
-      status: 400,
-      statusText: 'Bad Request',
-    });
+    throw new Response('Invalid or missing model', { status: 400, statusText: 'Bad Request' });
   }
 
   if (!providerName || typeof providerName !== 'string') {
-    throw new Response('Invalid or missing provider', {
-      status: 400,
-      statusText: 'Bad Request',
-    });
+    throw new Response('Invalid or missing provider', { status: 400, statusText: 'Bad Request' });
   }
 
   const cookieHeader = request.headers.get('Cookie');
@@ -83,19 +78,9 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
       options: {
         system:
           'You are a senior software principal architect, you should help the user analyse the user query and enrich it with the necessary context and constraints to make it more specific, actionable, and effective. You should also ensure that the prompt is self-contained and uses professional language. Your response should ONLY contain the enhanced prompt text. Do not include any explanations, metadata, or wrapper tags.',
-
-        /*
-         * onError: (event) => {
-         *   throw new Response(null, {
-         *     status: 500,
-         *     statusText: 'Internal Server Error',
-         *   });
-         * }
-         */
       },
     });
 
-    // Handle streaming errors in a non-blocking way
     (async () => {
       try {
         for await (const part of result.fullStream) {
@@ -110,7 +95,6 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
       }
     })();
 
-    // Return the text stream directly since it's already text data
     return new Response(result.textStream, {
       status: 200,
       headers: {
@@ -121,17 +105,9 @@ async function enhancerAction({ context, request }: ActionFunctionArgs) {
     });
   } catch (error: unknown) {
     console.log(error);
-
     if (error instanceof Error && error.message?.includes('API key')) {
-      throw new Response('Invalid or missing API key', {
-        status: 401,
-        statusText: 'Unauthorized',
-      });
+      throw new Response('Invalid or missing API key', { status: 401, statusText: 'Unauthorized' });
     }
-
-    throw new Response(null, {
-      status: 500,
-      statusText: 'Internal Server Error',
-    });
+    throw new Response(null, { status: 500, statusText: 'Internal Server Error' });
   }
 }
