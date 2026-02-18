@@ -13,6 +13,7 @@ import { ClientOnly } from 'remix-utils/client-only';
 import reactToastifyStyles from 'react-toastify/dist/ReactToastify.css?url';
 import globalStyles from './styles/index.scss?url';
 import xtermStyles from '@xterm/xterm/css/xterm.css?url';
+import { WelcomeNotice } from '~/components/ui/WelcomeNotice';
 
 import 'virtual:uno.css';
 
@@ -74,7 +75,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <ClientOnly>{() => <DndProvider backend={HTML5Backend}>{children}</DndProvider>}</ClientOnly>
+      <ClientOnly>{() => <DndProvider backend={HTML5Backend}>
+        <WelcomeNotice />
+        {children}
+      </DndProvider>}</ClientOnly>
       <ScrollRestoration />
       <Scripts />
     </>
