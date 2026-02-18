@@ -22,6 +22,7 @@ import type { Snapshot } from './types';
 import { webcontainer } from '~/lib/webcontainer';
 import { detectProjectCommands, createCommandActionsString } from '~/utils/projectCommands';
 import type { ContextAnnotation } from '~/types/context';
+import { initSupabaseChatSync, saveMessagesToSupabase } from '~/lib/supabase/chat-sync';
 
 export interface ChatHistoryItem {
   id: string;
@@ -35,6 +36,11 @@ export interface ChatHistoryItem {
 const persistenceEnabled = !import.meta.env.VITE_DISABLE_PERSISTENCE;
 
 export const db = persistenceEnabled ? await openDatabase() : undefined;
+
+// Initialize Supabase chat sync
+if (typeof window !== 'undefined') {
+  initSupabaseChatSync();
+}
 
 export const chatId = atom<string | undefined>(undefined);
 export const description = atom<string | undefined>(undefined);
@@ -341,6 +347,7 @@ ${value.content}
         return;
       }
 
+      // Save to IndexedDB (existing behavior)
       await setMessages(
         db,
         finalChatId, // Use the potentially updated chatId
@@ -350,6 +357,14 @@ ${value.content}
         undefined,
         chatMetadata.get(),
       );
+
+      // Save to Supabase (new behavior - runs in parallel)
+      try {
+        await saveMessagesToSupabase(finalChatId, [...archivedMessages, ...messages], description.get());
+      } catch (error) {
+        console.warn('Supabase save failed, but IndexedDB save succeeded:', error);
+        // Don't show error - Supabase is optional and IndexedDB is the primary storage
+      }
     },
     duplicateCurrentChat: async (listItemId: string) => {
       if (!db || (!mixedId && !listItemId)) {
