@@ -32,18 +32,18 @@ export const WelcomeNotice = () => {
                 <div className="w-10 h-10 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-500">
                   <div className="i-ph:warning-duotone text-2xl" />
                 </div>
-                <h2 className="text-xl font-bold text-bolt-elements-textPrimary">Project Under Development</h2>
+                <h2 className="text-xl font-bold text-bolt-elements-textPrimary">Project In Development</h2>
               </div>
               
               <div className="space-y-3 text-bolt-elements-textSecondary text-sm leading-relaxed">
                 <p>
-                  Chào mừng bạn đến với <span className="font-bold text-sky-500">nil.ai</span>!
+                  Welcome to <span className="font-bold text-sky-500">nil.ai</span>!
                 </p>
                 <p>
-                  Trang web này hiện đang trong quá trình lập trình và hoàn thiện. Một số tính năng có thể hoạt động chưa ổn định hoặc gặp lỗi phát sinh.
+                  This platform is currently under active development. You may encounter bugs, incomplete features, or performance issues.
                 </p>
                 <p className="p-3 bg-sky-500/5 rounded-lg border border-sky-500/10 italic">
-                  Nếu bạn gặp bất kỳ sự cố nào, vui lòng liên hệ hỗ trợ tại: 
+                  If you encounter any issues or have feedback, please contact us at:
                   <a href="mailto:nguyenphuc17122011@gmail.com" className="block font-medium text-sky-600 dark:text-sky-400 hover:underline mt-1">
                     nguyenphuc17122011@gmail.com
                   </a>
@@ -54,7 +54,7 @@ export const WelcomeNotice = () => {
                 onClick={handleClose}
                 className="w-full mt-6 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-xl font-semibold transition-all active:scale-95 shadow-lg shadow-sky-500/20"
               >
-                Tôi đã hiểu
+                I Understand
               </button>
             </div>
             
