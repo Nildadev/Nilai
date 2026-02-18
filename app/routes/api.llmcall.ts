@@ -22,95 +22,100 @@ async function getModelList(options: {
 const logger = createScopedLogger('api.llmcall');
 
 async function llmCallAction({ context, request }: ActionFunctionArgs) {
-  // Dynamic imports for server-only modules
-  const { streamText } = await import('~/lib/.server/llm/stream-text');
-  const { MAX_TOKENS } = await import('~/lib/.server/llm/constants');
+  try {
+    // Dynamic imports for server-only modules
+    const { streamText } = await import('~/lib/.server/llm/stream-text');
+    const { MAX_TOKENS } = await import('~/lib/.server/llm/constants');
 
-  const { system, message, model, provider, streamOutput } = await request.json<{
-    system: string;
-    message: string;
-    model: string;
-    provider: any;
-    streamOutput?: boolean;
-  }>();
+    const { system, message, model, provider, streamOutput } = await request.json<{
+      system: string;
+      message: string;
+      model: string;
+      provider: any;
+      streamOutput?: boolean;
+    }>();
 
-  const { name: providerName } = provider;
+    const { name: providerName } = provider || {};
 
-  if (!model || typeof model !== 'string') {
-    throw new Response('Invalid or missing model', { status: 400, statusText: 'Bad Request' });
-  }
-
-  if (!providerName || typeof providerName !== 'string') {
-    throw new Response('Invalid or missing provider', { status: 400, statusText: 'Bad Request' });
-  }
-
-  const cookieHeader = request.headers.get('Cookie');
-  const apiKeys = getApiKeysFromCookie(cookieHeader);
-  const providerSettings = getProviderSettingsFromCookie(cookieHeader);
-  const serverEnv = (context.cloudflare?.env as Record<string, string>) || import.meta.env;
-
-  if (streamOutput) {
-    try {
-      const result = await streamText({
-        options: { system },
-        messages: [{ role: 'user', content: `${message}` }],
-        env: serverEnv,
-        apiKeys,
-        providerSettings,
-      });
-
-      return new Response(result.textStream, {
-        status: 200,
-        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-      });
-    } catch (error: any) {
-      console.log(error);
-      if (error.message?.includes('API key')) {
-        throw new Response('Invalid or missing API key', { status: 401, statusText: 'Unauthorized' });
-      }
-      throw new Response(null, { status: 500, statusText: 'Internal Server Error' });
+    if (!model || typeof model !== 'string') {
+      return new Response(JSON.stringify({ error: 'Invalid or missing model' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
     }
-  } else {
-    try {
-      const models = await getModelList({ apiKeys, providerSettings, serverEnv });
-      const modelDetails = models.find((m: ModelInfo) => m.name === model);
 
-      if (!modelDetails) {
-        throw new Error('Model not found');
-      }
+    if (!providerName || typeof providerName !== 'string') {
+      return new Response(JSON.stringify({ error: 'Invalid or missing provider' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+    }
 
-      const dynamicMaxTokens = modelDetails && modelDetails.maxTokenAllowed ? modelDetails.maxTokenAllowed : MAX_TOKENS;
-      const providerInfo = PROVIDER_LIST.find((p) => p.name === provider.name);
+    const cookieHeader = request.headers.get('Cookie');
+    const apiKeys = getApiKeysFromCookie(cookieHeader);
+    const providerSettings = getProviderSettingsFromCookie(cookieHeader);
+    const serverEnv = (context.cloudflare?.env as Record<string, string>) || import.meta.env;
 
-      if (!providerInfo) {
-        throw new Error('Provider not found');
-      }
-
-      logger.info(`Generating response Provider: ${provider.name}, Model: ${modelDetails.name}`);
-
-      const result = await generateText({
-        system,
-        messages: [{ role: 'user', content: `${message}` }],
-        model: providerInfo.getModelInstance({
-          model: modelDetails.name,
-          serverEnv: serverEnv as any,
+    if (streamOutput) {
+      try {
+        const result = await streamText({
+          options: { system },
+          messages: [{ role: 'user', content: `${message}` }],
+          env: serverEnv,
           apiKeys,
           providerSettings,
-        }),
-        maxTokens: dynamicMaxTokens,
-        toolChoice: 'none',
-      });
+        });
 
-      return new Response(JSON.stringify(result), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    } catch (error: any) {
-      console.log(error);
-      if (error.message?.includes('API key')) {
-        throw new Response('Invalid or missing API key', { status: 401, statusText: 'Unauthorized' });
+        return new Response(result.textStream, {
+          status: 200,
+          headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+        });
+      } catch (error: any) {
+        console.log('Stream Error:', error);
+        if (error.message?.includes('API key')) {
+          return new Response(JSON.stringify({ error: 'Invalid or missing API key' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+        }
+        return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
       }
-      throw new Response(null, { status: 500, statusText: 'Internal Server Error' });
+    } else {
+      try {
+        const models = await getModelList({ apiKeys, providerSettings, serverEnv });
+        const modelDetails = models.find((m: ModelInfo) => m.name === model);
+
+        if (!modelDetails) {
+          throw new Error('Model not found');
+        }
+
+        const dynamicMaxTokens = modelDetails && modelDetails.maxTokenAllowed ? modelDetails.maxTokenAllowed : MAX_TOKENS;
+        const providerInfo = PROVIDER_LIST.find((p) => p.name === provider.name);
+
+        if (!providerInfo) {
+          throw new Error('Provider not found');
+        }
+
+        logger.info(`Generating response Provider: ${provider.name}, Model: ${modelDetails.name}`);
+
+        const result = await generateText({
+          system,
+          messages: [{ role: 'user', content: `${message}` }],
+          model: providerInfo.getModelInstance({
+            model: modelDetails.name,
+            serverEnv: serverEnv as any,
+            apiKeys,
+            providerSettings,
+          }),
+          maxTokens: dynamicMaxTokens,
+          toolChoice: 'none',
+        });
+
+        return new Response(JSON.stringify(result), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      } catch (error: any) {
+        console.log('Generate Error:', error);
+        if (error.message?.includes('API key')) {
+          return new Response(JSON.stringify({ error: 'Invalid or missing API key' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+        }
+        return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+      }
     }
+  } catch (error: any) {
+    console.error('API Error:', error);
+    return new Response(JSON.stringify({ error: 'Bad Request', details: error.message }), { status: 400, headers: { 'Content-Type': 'application/json' } });
   }
 }
