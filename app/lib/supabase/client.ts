@@ -10,6 +10,7 @@ const getSupabaseCredentials = () => {
       try {
         const parsed = JSON.parse(connection);
         if (parsed.credentials?.supabaseUrl && parsed.credentials?.anonKey) {
+          console.log('[Supabase] Using credentials from localStorage');
           return {
             supabaseUrl: parsed.credentials.supabaseUrl,
             supabaseAnonKey: parsed.credentials.anonKey,
@@ -19,11 +20,30 @@ const getSupabaseCredentials = () => {
         console.error('Failed to parse Supabase connection:', e);
       }
     }
+
+    // Also check direct env vars in browser
+    const browserUrl = (window as any).env?.VITE_SUPABASE_URL;
+    const browserKey = (window as any).env?.VITE_SUPABASE_ANON_KEY;
+    
+    if (browserUrl && browserKey) {
+      console.log('[Supabase] Using credentials from window.env');
+      return { supabaseUrl: browserUrl, supabaseAnonKey: browserKey };
+    }
   }
 
-  // Fallback to environment variables
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.SUPABASE_ANON_KEY;
+  // Fallback to environment variables (Vite injects these)
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+  if (supabaseUrl && supabaseAnonKey) {
+    console.log('[Supabase] Using credentials from import.meta.env');
+    console.log('[Supabase] URL:', supabaseUrl);
+    console.log('[Supabase] Key preview:', supabaseAnonKey.substring(0, 20) + '...');
+  } else {
+    console.warn('[Supabase] Environment variables not found!');
+    console.warn('[Supabase] VITE_SUPABASE_URL:', supabaseUrl ? '✅' : '❌');
+    console.warn('[Supabase] VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✅' : '❌');
+  }
 
   return { supabaseUrl, supabaseAnonKey };
 };

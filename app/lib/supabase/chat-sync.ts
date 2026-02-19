@@ -18,7 +18,15 @@ export function initSupabaseChatSync() {
   const userId = getOrCreateUserId();
   supabaseService.setUserId(userId);
   
-  console.log('Supabase chat sync initialized for user:', userId);
+  console.log('[Supabase Chat] Initialized for user:', userId);
+  
+  // Check if Supabase is enabled
+  const isEnabled = supabaseService.isServiceEnabled();
+  console.log('[Supabase Chat] Service enabled:', isEnabled);
+  
+  if (!isEnabled) {
+    console.warn('[Supabase Chat] Service not enabled - check credentials');
+  }
 }
 
 /**
@@ -54,11 +62,18 @@ export async function saveMessagesToSupabase(
   messages: Message[],
   title?: string,
 ): Promise<string | null> {
+  console.log('[Supabase Chat] Attempting to save messages:', {
+    conversationId,
+    messageCount: messages.length,
+    title,
+  });
+
   try {
     let convId = conversationId;
     
     // Create conversation if it doesn't exist
     if (!convId) {
+      console.log('[Supabase Chat] Creating new conversation...');
       const conversation = await supabaseService.createConversation(
         title || 'New Chat',
         {
@@ -68,19 +83,21 @@ export async function saveMessagesToSupabase(
       );
       
       if (!conversation) {
-        console.warn('Failed to create Supabase conversation');
+        console.warn('[Supabase Chat] Failed to create conversation');
         return null;
       }
       
       convId = conversation.id;
-      console.log('Created new Supabase conversation:', convId);
+      console.log('[Supabase Chat] Created conversation:', convId);
     }
     
     // Save all messages
     const messagesToSave = messages.filter(m => !m.annotations?.includes('no-store'));
+    console.log('[Supabase Chat] Saving', messagesToSave.length, 'messages to conversation', convId);
     
+    let savedCount = 0;
     for (const message of messagesToSave) {
-      await supabaseService.createMessage(
+      const result = await supabaseService.createMessage(
         convId,
         message.role as 'user' | 'assistant' | 'system',
         typeof message.content === 'string' ? message.content : JSON.stringify(message.content),
@@ -89,12 +106,16 @@ export async function saveMessagesToSupabase(
           timestamp: new Date().toISOString(),
         },
       );
+      
+      if (result) {
+        savedCount++;
+      }
     }
     
-    console.log(`Saved ${messagesToSave.length} messages to Supabase conversation ${convId}`);
+    console.log(`[Supabase Chat] Successfully saved ${savedCount}/${messagesToSave.length} messages`);
     return convId;
   } catch (error) {
-    console.error('Failed to save messages to Supabase:', error);
+    console.error('[Supabase Chat] Failed to save messages:', error);
     // Don't show error toast to avoid annoying user - Supabase is optional
     return null;
   }
