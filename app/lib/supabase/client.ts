@@ -1,16 +1,17 @@
-import { createClient } from '@supabase/supabase-js';
 import type { Database } from '~/types/supabase';
 
-// Get Supabase credentials from environment or connection state
+// Supabase client - lazy loaded to avoid build issues
+let supabaseClient: any = null;
+
+// Get Supabase credentials
 const getSupabaseCredentials = () => {
-  // Try to get from localStorage first (for connected Supabase accounts)
   if (typeof window !== 'undefined') {
+    // Check localStorage first
     const connection = localStorage.getItem('supabase_connection');
     if (connection) {
       try {
         const parsed = JSON.parse(connection);
         if (parsed.credentials?.supabaseUrl && parsed.credentials?.anonKey) {
-          console.log('[Supabase] Using credentials from localStorage');
           return {
             supabaseUrl: parsed.credentials.supabaseUrl,
             supabaseAnonKey: parsed.credentials.anonKey,
@@ -20,63 +21,55 @@ const getSupabaseCredentials = () => {
         console.error('Failed to parse Supabase connection:', e);
       }
     }
-
-    // Also check direct env vars in browser
+    
+    // Check window.env
     const browserUrl = (window as any).env?.VITE_SUPABASE_URL;
     const browserKey = (window as any).env?.VITE_SUPABASE_ANON_KEY;
-    
     if (browserUrl && browserKey) {
-      console.log('[Supabase] Using credentials from window.env');
       return { supabaseUrl: browserUrl, supabaseAnonKey: browserKey };
     }
   }
 
-  // Fallback to environment variables (Vite injects these)
+  // Fallback to import.meta.env (Vite injects these)
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
   if (supabaseUrl && supabaseAnonKey) {
     console.log('[Supabase] Using credentials from import.meta.env');
     console.log('[Supabase] URL:', supabaseUrl);
-    console.log('[Supabase] Key preview:', supabaseAnonKey.substring(0, 20) + '...');
-  } else {
-    console.warn('[Supabase] Environment variables not found!');
-    console.warn('[Supabase] VITE_SUPABASE_URL:', supabaseUrl ? '✅' : '❌');
-    console.warn('[Supabase] VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✅' : '❌');
   }
 
   return { supabaseUrl, supabaseAnonKey };
 };
 
-const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
+// Get or create Supabase client
+export const getSupabase = async () => {
+  if (supabaseClient) return supabaseClient;
+  
+  try {
+    const { createClient } = await import('@supabase/supabase-js');
+    const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
+    
+    if (!supabaseUrl || !supabaseAnonKey) {
+      console.warn('[Supabase] Not configured - missing credentials');
+      return null;
+    }
+    
+    supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+    console.log('[Supabase] Client initialized');
+    return supabaseClient;
+  } catch (error) {
+    console.error('[Supabase] Failed to initialize:', error);
+    return null;
+  }
+};
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    'Supabase environment variables not configured. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY or connect via Settings.',
-  );
-}
-
-// Create Supabase client
-export const supabase = createClient<Database>(
-  supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder-key',
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-    realtime: {
-      params: {
-        eventsPerSecond: 10,
-      },
-    },
-  },
-);
-
-// Helper functions for common operations
+// Helper functions
 export const supabaseHelpers = {
-  // Conversations
   async createConversation(userId: string, title: string, metadata?: Record<string, any>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('conversations').insert({
       user_id: userId,
       title,
@@ -85,6 +78,9 @@ export const supabaseHelpers = {
   },
 
   async getConversations(userId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: [], error: new Error('Supabase not initialized') };
+    
     return supabase
       .from('conversations')
       .select('*')
@@ -93,24 +89,35 @@ export const supabaseHelpers = {
   },
 
   async getConversation(conversationId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('conversations').select('*').eq('id', conversationId).single();
   },
 
   async updateConversation(conversationId: string, updates: Partial<{ title: string; metadata: Record<string, any> }>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('conversations').update(updates).eq('id', conversationId);
   },
 
   async deleteConversation(conversationId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('conversations').delete().eq('id', conversationId);
   },
 
-  // Messages
   async createMessage(
     conversationId: string,
     role: 'user' | 'assistant' | 'system',
     content: string,
     metadata?: Record<string, any>,
   ) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('messages').insert({
       conversation_id: conversationId,
       role,
@@ -120,6 +127,9 @@ export const supabaseHelpers = {
   },
 
   async getMessages(conversationId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: [], error: new Error('Supabase not initialized') };
+    
     return supabase
       .from('messages')
       .select('*')
@@ -128,21 +138,23 @@ export const supabaseHelpers = {
   },
 
   async updateMessage(messageId: string, updates: Partial<{ content: string; metadata: Record<string, any> }>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('messages').update(updates).eq('id', messageId);
   },
 
   async deleteMessage(messageId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('messages').delete().eq('id', messageId);
   },
 
-  // Projects
-  async createProject(
-    userId: string,
-    name: string,
-    description?: string,
-    files?: any[],
-    metadata?: Record<string, any>,
-  ) {
+  async createProject(userId: string, name: string, description?: string, files?: any[], metadata?: Record<string, any>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('projects').insert({
       user_id: userId,
       name,
@@ -153,6 +165,9 @@ export const supabaseHelpers = {
   },
 
   async getProjects(userId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: [], error: new Error('Supabase not initialized') };
+    
     return supabase
       .from('projects')
       .select('*')
@@ -161,29 +176,37 @@ export const supabaseHelpers = {
   },
 
   async getProject(projectId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('projects').select('*').eq('id', projectId).single();
   },
 
-  async updateProject(
-    projectId: string,
-    updates: Partial<{ name: string; description: string; files: any[]; metadata: Record<string, any> }>,
-  ) {
+  async updateProject(projectId: string, updates: Partial<{ name: string; description: string; files: any[]; metadata: Record<string, any> }>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('projects').update(updates).eq('id', projectId);
   },
 
   async deleteProject(projectId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('projects').delete().eq('id', projectId);
   },
 
-  // Profile
   async getProfile(userId: string) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('profiles').select('*').eq('id', userId).single();
   },
 
-  async updateProfile(
-    userId: string,
-    updates: Partial<{ full_name: string; avatar_url: string; email: string }>,
-  ) {
+  async updateProfile(userId: string, updates: Partial<{ full_name: string; avatar_url: string; email: string }>) {
+    const supabase = await getSupabase();
+    if (!supabase) return { data: null, error: new Error('Supabase not initialized') };
+    
     return supabase.from('profiles').update(updates).eq('id', userId);
   },
 };

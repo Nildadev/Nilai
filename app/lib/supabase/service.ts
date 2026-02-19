@@ -1,4 +1,4 @@
-import { supabase, supabaseHelpers } from './client';
+import { supabaseHelpers, getSupabase } from './client';
 import type { Conversation, Message, Project } from '~/types/supabase';
 import { toast } from 'react-toastify';
 
@@ -26,17 +26,25 @@ export class SupabaseService {
    */
   private async checkConnection() {
     try {
+      const supabase = await getSupabase();
+      
+      if (!supabase) {
+        console.warn('[Supabase] Client not initialized');
+        this.isEnabled = false;
+        return;
+      }
+
       const { data, error } = await supabase.from('profiles').select('id').limit(1);
 
       if (error) {
-        console.warn('Supabase connection check failed:', error.message);
+        console.warn('[Supabase] Connection check failed:', error.message);
         this.isEnabled = false;
       } else {
         this.isEnabled = true;
-        console.log('Supabase connection established');
+        console.log('[Supabase] Connection established');
       }
     } catch (error) {
-      console.warn('Supabase not configured:', error);
+      console.warn('[Supabase] Not configured:', error);
       this.isEnabled = false;
     }
   }
