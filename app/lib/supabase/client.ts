@@ -1,10 +1,16 @@
 import type { Database } from '~/types/supabase';
 
-// Supabase client - lazy loaded to avoid build issues
+// Supabase client - only loaded in browser, never during build
 let supabaseClient: any = null;
+let isInitialized = false;
 
 // Get Supabase credentials
 const getSupabaseCredentials = () => {
+  if (typeof window === 'undefined') {
+    // Server-side: return null to prevent initialization
+    return { supabaseUrl: null, supabaseAnonKey: null };
+  }
+
   if (typeof window !== 'undefined') {
     // Check localStorage first
     const connection = localStorage.getItem('supabase_connection');
@@ -34,37 +40,48 @@ const getSupabaseCredentials = () => {
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-  if (supabaseUrl && supabaseAnonKey) {
-    console.log('[Supabase] Using credentials from import.meta.env');
-    console.log('[Supabase] URL:', supabaseUrl);
-  }
-
   return { supabaseUrl, supabaseAnonKey };
 };
 
-// Get or create Supabase client
+// Get or create Supabase client - ONLY runs in browser
 export const getSupabase = async () => {
+  // Prevent server-side execution
+  if (typeof window === 'undefined') {
+    console.warn('[Supabase] Cannot initialize on server');
+    return null;
+  }
+
   if (supabaseClient) return supabaseClient;
   
+  if (isInitialized) {
+    return supabaseClient;
+  }
+
   try {
-    const { createClient } = await import('@supabase/supabase-js');
     const { supabaseUrl, supabaseAnonKey } = getSupabaseCredentials();
     
     if (!supabaseUrl || !supabaseAnonKey) {
       console.warn('[Supabase] Not configured - missing credentials');
+      isInitialized = true;
       return null;
     }
     
+    // Dynamic import - only executed in browser
+    const createClientModule = await import('@supabase/supabase-js');
+    const createClient = createClientModule.createClient;
+    
     supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
-    console.log('[Supabase] Client initialized');
+    console.log('[Supabase] Client initialized successfully');
+    isInitialized = true;
     return supabaseClient;
   } catch (error) {
     console.error('[Supabase] Failed to initialize:', error);
+    isInitialized = true;
     return null;
   }
 };
 
-// Helper functions
+// Helper functions - all async to support dynamic loading
 export const supabaseHelpers = {
   async createConversation(userId: string, title: string, metadata?: Record<string, any>) {
     const supabase = await getSupabase();
